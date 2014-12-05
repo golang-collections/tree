@@ -62,3 +62,8 @@ func Spawn(handle interface{}) Cursor {
 
 	return obj.Spawn()
 }
+
+func MkNode(handle interface{}) Cursor {
+	p := uintptr(reflect.ValueOf(handle).Pointer())
+
+}
