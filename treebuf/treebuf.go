@@ -7,6 +7,7 @@ import (
 
 type Root struct {
 	r *Node
+//	RWMutex		// not needed currently
 }
 
 type Node struct {

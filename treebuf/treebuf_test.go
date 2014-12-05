@@ -14,21 +14,22 @@ func TestMy0(t *testing.T) {
 	colmgr.Init(&cool, Root{})	// We initialize the collection
 	defer colmgr.Destroy(&cool)	// We destroy the collection
 
+	vala := []byte("hello")
 
-	colmgr.MkNode(&cool, 512)
+	colmgr.MkNode(&cool, 512, vala)
 
-	colmgr.MkNode(&cool, 256)
-	colmgr.MkNode(&cool, 768)
+	colmgr.MkNode(&cool, 256, vala)
+	colmgr.MkNode(&cool, 768, vala)
 
-	colmgr.MkNode(&cool, 128)
-	colmgr.MkNode(&cool, 384)
-	colmgr.MkNode(&cool, 640)
-	colmgr.MkNode(&cool, 896)
+	colmgr.MkNode(&cool, 128, vala)
+	colmgr.MkNode(&cool, 384, vala)
+	colmgr.MkNode(&cool, 640, vala)
+	colmgr.MkNode(&cool, 896, vala)
 
 	// now we loop around the collection and put an actual values
+	// from start to end
 
-
-
+//	next_pointer := 
 	
 }
 
