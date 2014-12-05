@@ -1,0 +1,39 @@
+Begin()
+End()
+At()
+Near()
+
+GetObj()
+GetBuf()
+
+PutObj()
+PutBuf()
+
+MkNode()	// scaffolding operation. Do not use
+
+--------------------------------------------------------------------------------
+operations:
+
+[ ] seek cursor after offset. -> ender if empty tree
+[ ] seek cursor to end. -> ender
+[ ] seek cursor to start. -> ender if empty tree
+
+[ ] prepend cursor slice
+[ ] append cursor slice
+[ ] replace cursor slice
+
+[ ] prepend & move cursor slice
+[ ] append & move cursor slice
+
+[ ] del 1 object
+[ ] del ..)
+[ ] del <..
+[ ] del <) range
+
+MODES:
+
+array
+list
+map
+
+
