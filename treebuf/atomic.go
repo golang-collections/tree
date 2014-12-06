@@ -10,6 +10,7 @@ func CmpSwapPtr(addr **Node, val *Node) (swapped bool) {
 		(*addr) = val
 		return true
 	}
-	p := unsafe.Pointer(*addr)
-	return atomic.CompareAndSwapPointer(&p, nil, unsafe.Pointer(val))
+
+	p := (*unsafe.Pointer)(unsafe.Pointer(addr))
+	return atomic.CompareAndSwapPointer(p, nil, unsafe.Pointer(val))
 }
