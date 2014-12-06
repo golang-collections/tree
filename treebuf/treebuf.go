@@ -65,7 +65,7 @@ func (a *Atter) Next() colmgr.Nexter {	// we are only end, when the tree is empt
 }
 
 func (r *Root) At(key uintptr) colmgr.Atter {
-	if debug_destructor && r.trunk.r == &r.trunk {
+	if debug_destructor && r.trunk.l == &r.trunk {
 		panic("Dead tree")
 	}
 
@@ -90,8 +90,8 @@ func (r *Node) Dump(f byte, d uint) {
 }
 
 func (r *Root) Dump(f byte) {
-	if debug_destructor && r.trunk.r == &r.trunk {
-		fmt.Printf("Dead tree")
+	if debug_destructor && r.trunk.l == &r.trunk {
+		panic("Dead tree")
 	}
 	fmt.Printf("Dumping the tree %p with format %d \n", r, f)
 	if r.trunk.r != nil {

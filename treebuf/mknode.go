@@ -35,14 +35,17 @@ func mk(key uintptr, val []byte, now *Node) {
 	}
 }
 
-func (root *Root) MkNode(key uintptr, val []byte) {
-	if root.trunk.r == nil {
-		if CmpSwapPtr(&root.trunk.r, node(key, val, nil)) {
+func (r *Root) MkNode(key uintptr, val []byte) {
+	if debug_destructor && r.trunk.l == &r.trunk {
+		panic("Dead tree")
+	}
+	if r.trunk.r == nil {
+		if CmpSwapPtr(&r.trunk.r, node(key, val, nil)) {
 			return
 		}
 	}
 
 //	fmt.Printf("MkNode to %d.\n", key)
 
-	mk(key, val, root.trunk.r)
+	mk(key, val, r.trunk.r)
 }
