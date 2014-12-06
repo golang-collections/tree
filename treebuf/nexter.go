@@ -25,6 +25,20 @@ func (n *Nexter) Next() {
 
 	fmt.Printf("som %p %p \n", n.p, n.q)
 
+	// lezem do lava
+	for n.p.l == n.q || n.p.r == n.q {
+		if n.q.l != nil {
+		n.p = n.q
+			n.q = n.q.l
+		} else if n.q.r != nil {
+		n.p = n.q
+			n.q = n.q.r
+
+		} else {
+			break
+		}
+	}
+
 	if n.q.l == nil && n.q.r == nil {
 		t := n.q
 		n.q = n.p
@@ -62,12 +76,6 @@ func (n *Nexter) Next() {
 //	}
 
 
-
-	// lezem do lava
-	for n.q.l != nil {
-		n.p = n.q
-		n.q = n.q.l
-	}
 }
 func (a *Atter) End() bool {
 	// we are only end, when the tree is empty, or no smaller or equal key
