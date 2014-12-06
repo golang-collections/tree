@@ -36,12 +36,13 @@ func mk(key uintptr, val []byte, now *Node) {
 }
 
 func (root *Root) MkNode(key uintptr, val []byte) {
-	if root.r == nil {
-		root.r = node(key, val, nil)
-		return
+	if root.trunk.r == nil {
+		if CmpSwapPtr(&root.trunk.r, node(key, val, nil)) {
+			return
+		}
 	}
 
 //	fmt.Printf("MkNode to %d.\n", key)
 
-	mk(key, val, root.r)
+	mk(key, val, root.trunk.r)
 }

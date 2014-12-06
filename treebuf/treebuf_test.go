@@ -26,8 +26,25 @@ func TestMy0(t *testing.T) {
 	colmgr.MkNode(&cool, 640, vala)
 	colmgr.MkNode(&cool, 896, vala)
 
+	at := colmgr.At(&cool, 512)
+	near := colmgr.At(&cool, 513)
+	_ = at
+	_ = near
+
+
+
 	// now we loop around the collection and put an actual values
 	// from start to end
+/*
+	print(len(cool))
+
+	for i, j := range cool {
+		print(i, j)
+		//do a slow operation
+	}
+
+	cool = append(cool, []byte("foo"))
+*/
 
 //	next_pointer := 
 	

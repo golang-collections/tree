@@ -6,7 +6,7 @@ import (
 )
 
 type Root struct {
-	r *Node
+	trunk Node
 //	RWMutex		// not needed currently
 }
 
@@ -18,11 +18,50 @@ type Node struct {
 func (Root) Root() colmgr.Collector {
 	return &Root{}
 }
-type Ender struct {}
+func (n *Node) Trunk() bool {
+	return n.p == nil
+}
 
-func (r *Root) MkSeek() colmgr.Seeker {
-	if r.r == nil {
-		return Ender{}
+// ITERATORS STUFF /////////////////////////////////////////////////////////////
+type Atter struct {
+	key uintptr	// we try to stay at or after this key
+	Nexter
+}
+
+type Nexter struct {
+	p *Node	// this is never empty
+}
+func (n *Nexter) End() bool {
+	return n.p == nil
+}
+func (n *Nexter) Next() {
+	if n.p.r != nil {
+		n.p = n.p.r
+		for n.p.l != nil {
+			n.p = n.p.l
+		}
+		return
 	}
-	return 
+	// v pravo nic neni ideme hore
+
+}
+func (a *Atter) End() bool {
+	// we are only end, when the tree is empty, or no smaller or equal key
+	if a.Nexter.p.Key > a.key {
+		return true
+	}
+
+	return a.Nexter.p.Trunk()
+}
+
+func (a *Atter) Next() colmgr.Nexter {	// we are only end, when the tree is empty
+	n := &Nexter{p: a.Nexter.p}
+	n.Next()
+	return n
+}
+
+func (r *Root) At(key uintptr) colmgr.Atter {
+	now := &r.trunk
+
+	return &Atter{key:key, Nexter:Nexter{now}}
 }
