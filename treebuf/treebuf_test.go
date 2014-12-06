@@ -8,7 +8,7 @@ import (
 )
 
 func TestSeekStart0(t *testing.T) {
-
+spew.Dump("")
 }
 
 func TestMy0(t *testing.T) {
@@ -33,7 +33,6 @@ func TestMy0(t *testing.T) {
 	// We create iterators at various spots in the collection
 
 	root := colmgr.At(&cool, 512)
-
 	at := colmgr.At(&cool, 768)
 	near := colmgr.At(&cool, 769)
 	start := colmgr.At(&cool, colmgr.Begin)
@@ -42,18 +41,19 @@ func TestMy0(t *testing.T) {
 	_ = near
 	_ = start
 	_ = end
+	_ = root
 
-	spew.Dump(root)
+//	spew.Dump(root)
 
 	colmgr.Dump(&cool, 0)
 
 
 
-/*
+
 	for i := start.Next(); !i.End(); i.Next() {
 		fmt.Println(i)
 	}
-*/
+
 	fmt.Println("")
 
 	// now we loop around the collection and put an actual values

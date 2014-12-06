@@ -1,6 +1,9 @@
 package treebuf
 
-import "example.com/repo.git/colmgr"
+import (
+	"example.com/repo.git/colmgr"
+	"fmt"
+)
 
 // ITERATORS STUFF /////////////////////////////////////////////////////////////
 type Atter struct {
@@ -26,6 +29,7 @@ func (n *Nexter) Next() {
 		}
 		return
 	}
+	fmt.Println("v pravo nic neni ideme hore\n")
 	// v pravo nic neni ideme hore
 
 }
@@ -39,13 +43,23 @@ func (a *Atter) End() bool {
 }
 
 func (a *Atter) Next() colmgr.Nexter {	// we are only end, when the tree is empty
+	fmt.Println("Idem dalej s attera\n")
+
 	n := &Nexter{p: a.p, q: a.p}
+	fmt.Printf("som %p %p \n", n.p, n.q)
 	n.Next()
+	fmt.Printf("som %p %p \n", n.p, n.q)
 	return n
 }
 
 func (r *Root) At(key uintptr) colmgr.Atter {
-	now := &r.trunk
+	now := r.trunk.r
+
+
+
+	if now.Key < key {
+		now = now
+	}
 
 	return &Atter{key:key, p:now}
 }

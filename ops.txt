@@ -2,6 +2,7 @@ Begin()
 End()
 At()
 Near()
+MkNode()	// scaffolding operation. Do not use
 --------------------------------------------------------------------------------
 
 GetObj()
@@ -10,7 +11,7 @@ GetBuf()
 PutObj()
 PutBuf()
 
-MkNode()	// scaffolding operation. Do not use
+
 
 --------------------------------------------------------------------------------
 operations:

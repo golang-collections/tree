@@ -16,7 +16,7 @@ type Node struct {
 	Val	[]byte		// this is the val
 }
 func (Root) Root() colmgr.Collector {
-	return &Root{}
+	return &Root{trunk:Node{Key:colmgr.End, Val:nil}}
 }
 func (n *Node) Trunk() bool {
 	return n.p == nil
@@ -32,7 +32,7 @@ func (r *Node) Dump(f byte, d uint) {
 	for i := uint(0) ; i < d; i++ {
 		fmt.Printf(" ")
 	}
-	fmt.Printf("[%v]\n", r)
+	fmt.Printf("[%p | %v]\n", r,r)
 	if r.r != nil {
 		r.r.Dump(f, d+1)
 	}
