@@ -54,11 +54,31 @@ func (a *Atter) Next() colmgr.Nexter { // we are only end, when the tree is empt
 }
 
 func (r *Root) At(key uintptr) colmgr.Atter {
+	if r.trunk.r == nil {
+		return &Atter{key: key, p: &r.trunk}
+	}
 	now := r.trunk.r
+	ok := now
 
-	if now.Key < key {
-		now = now
+//	for now.l != nil && now.r != nil {
+	for now.r != nil && now.Key < key {
+	fmt.Printf(".. key=%d %p\n", key, now)
+		ok = now
+		now = now.r
 	}
 
+	for now.l != nil && now.Key > key {
+	fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
+		now = now.l
+	}
+
+	if now.Key > key && ok.Key < now.Key {
+	fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
+		now = ok
+
+	} 
+
+//	}
+	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
 }
