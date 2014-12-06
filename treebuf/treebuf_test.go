@@ -12,7 +12,7 @@ func TestSeekStart0(t *testing.T) {
 }
 
 func TestMy0(t *testing.T) {
-	var cool [0][]byte	// this is the collection reference
+	var cool [colmgr.Collection][]byte	// this is the collection reference
 	colmgr.Init(&cool, Root{})	// We initialize the collection
 	defer colmgr.Destroy(&cool)	// We destroy the collection
 
