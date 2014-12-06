@@ -3,22 +3,14 @@ End()
 At()
 Near()
 MkNode()	// scaffolding operation. Do not use
---------------------------------------------------------------------------------
-
-GetObj()
-GetBuf()
-
-PutObj()
-PutBuf()
+Map()
+Upd()
 
 
 
 --------------------------------------------------------------------------------
 operations:
 
-[ ] seek cursor after offset. -> ender if empty tree
-[ ] seek cursor to end. -> ender
-[ ] seek cursor to start. -> ender if empty tree
 
 [ ] prepend cursor slice
 [ ] append cursor slice
