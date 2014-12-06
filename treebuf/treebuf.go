@@ -32,7 +32,7 @@ type Nexter struct {
 	p, q *Node	// p is never nil
 }
 func (n *Nexter) End() bool {
-	return n.p == nil
+	return n.q == nil
 }
 func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key

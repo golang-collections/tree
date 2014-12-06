@@ -3,6 +3,8 @@ package treebuf
 import (
 	"testing"
 	"example.com/repo.git/colmgr"
+	"fmt"
+	"github.com/davecgh/go-spew/spew"
 )
 
 func TestSeekStart0(t *testing.T) {
@@ -30,8 +32,10 @@ func TestMy0(t *testing.T) {
 
 	// We create iterators at various spots in the collection
 
-	at := colmgr.At(&cool, 512)
-	near := colmgr.At(&cool, 513)
+	root := colmgr.At(&cool, 512)
+
+	at := colmgr.At(&cool, 768)
+	near := colmgr.At(&cool, 769)
 	start := colmgr.At(&cool, colmgr.Begin)
 	end := colmgr.At(&cool, colmgr.End)
 	_ = at
@@ -39,6 +43,11 @@ func TestMy0(t *testing.T) {
 	_ = start
 	_ = end
 
+	spew.Dump(root)
+
+	for i := start.Next(); !i.End(); i.Next() {
+		fmt.Println(i)
+	}
 
 	// now we loop around the collection and put an actual values
 	// from start to end
