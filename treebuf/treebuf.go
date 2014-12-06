@@ -20,6 +20,9 @@ func (Root) Root() colmgr.Collector {
 }
 type Ender struct {}
 
-func (Root) Spawn() colmgr.Cursor {
-	return Ender{}
+func (r *Root) MkSeek() colmgr.Seeker {
+	if r.r == nil {
+		return Ender{}
+	}
+	return 
 }
