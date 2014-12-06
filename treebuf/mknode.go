@@ -6,7 +6,7 @@ import (
 
 // SCAFFOLDING OPERATORS ///////////////////////////////////////////////////////
 func node(key uintptr, val []byte, p *Node) *Node {
-	return &Node{r: nil, l: nil, p:p, Key:key, Val:val}
+	return &Node{r: nil, l: nil, p: p, Key: key, Val: val}
 }
 
 func mk(key uintptr, val []byte, now *Node) {
@@ -50,8 +50,6 @@ func (r *Root) MkNode(key uintptr, val []byte) {
 			return
 		}
 	}
-
-
 
 	mk(key, val, r.trunk.r)
 }

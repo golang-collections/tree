@@ -1,20 +1,20 @@
 package treebuf
 
 import (
-	"testing"
 	"example.com/repo.git/colmgr"
 	"fmt"
 	"github.com/davecgh/go-spew/spew"
+	"testing"
 )
 
 func TestSeekStart0(t *testing.T) {
-spew.Dump("")
+	spew.Dump("")
 }
 
 func TestMy0(t *testing.T) {
-	var cool [colmgr.Collection][]byte	// this is the collection reference
-	colmgr.Init(&cool, Root{})	// We initialize the collection
-	defer colmgr.Destroy(&cool)	// We destroy the collection
+	var cool [colmgr.Collection][]byte // this is the collection reference
+	colmgr.Init(&cool, Root{})         // We initialize the collection
+	defer colmgr.Destroy(&cool)        // We destroy the collection
 
 	vala := []byte("hello")
 
@@ -43,12 +43,9 @@ func TestMy0(t *testing.T) {
 	_ = end
 	_ = root
 
-//	spew.Dump(root)
+	//	spew.Dump(root)
 
 	colmgr.Dump(&cool, 0)
-
-
-
 
 	for i := start.Next(); !i.End(); i.Next() {
 		fmt.Println(i)
@@ -58,36 +55,37 @@ func TestMy0(t *testing.T) {
 
 	// now we loop around the collection and put an actual values
 	// from start to end
-/*
+	/*
 
-	// print the len
-	print(len(cool))
+		// print the len
+		print(len(cool))
 
-	// do a subslice
-	foo := slice(cool, 50, 100)
+		// do a subslice
+		foo := slice(cool, 50, 100)
 
-	for i, j := range cool {
-		print(i, j)
-		//do a slow operation
-	}
+		for i, j := range cool {
+			print(i, j)
+			//do a slow operation
+		}
 
-	cool = append(cool, []byte("foo"))
-*/
+		cool = append(cool, []byte("foo"))
+	*/
 
-//	next_pointer := 
-	
+	//	next_pointer :=
+
 }
 
 func TestAppend0(t *testing.T) {
-/*
-	var h [1][]byte
+	/*
+		var h [1][]byte
 
-	Append(&h, byte(19), byte(5), byte(4), byte(3))
-	if Checksum(h) != 4433864318700699030 {
-		t.Error("Variadic append")
-	}
-*/
+		Append(&h, byte(19), byte(5), byte(4), byte(3))
+		if Checksum(h) != 4433864318700699030 {
+			t.Error("Variadic append")
+		}
+	*/
 }
+
 /*
 func TestAppend1(t *testing.T) {
 

@@ -7,13 +7,14 @@ import (
 
 // ITERATORS STUFF /////////////////////////////////////////////////////////////
 type Atter struct {
-	key uintptr	// we try to stay at or after this key
-	p *Node		// never nil
+	key uintptr // we try to stay at or after this key
+	p   *Node   // never nil
 }
 
 type Nexter struct {
-	p, q *Node	// p is never nil
+	p, q *Node // p is never nil
 }
+
 func (n *Nexter) End() bool {
 	return n.q == nil
 }
@@ -42,7 +43,7 @@ func (a *Atter) End() bool {
 	return a.p.Trunk()
 }
 
-func (a *Atter) Next() colmgr.Nexter {	// we are only end, when the tree is empty
+func (a *Atter) Next() colmgr.Nexter { // we are only end, when the tree is empty
 	fmt.Println("Idem dalej s attera\n")
 
 	n := &Nexter{p: a.p, q: a.p}
@@ -55,11 +56,9 @@ func (a *Atter) Next() colmgr.Nexter {	// we are only end, when the tree is empt
 func (r *Root) At(key uintptr) colmgr.Atter {
 	now := r.trunk.r
 
-
-
 	if now.Key < key {
 		now = now
 	}
 
-	return &Atter{key:key, p:now}
+	return &Atter{key: key, p: now}
 }
