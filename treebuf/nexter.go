@@ -23,17 +23,24 @@ func (n *Nexter) gap() uintptr {
 }
 func (n *Nexter) Next() {
 
+	fmt.Printf("som %p %p \n", n.p, n.q)
+
 	if n.q.l == nil && n.q.r == nil {
 		t := n.q
 		n.q = n.p
 		n.p = t
+
+		return
 	}
+
+
 
 	// vyliezam z prava
 	if n.q.r == n.p {
+
 		n.p = n.q
 		n.q = n.q.p
-		return
+	return
 	}
 
 	// vyliezam z lava
@@ -48,8 +55,6 @@ func (n *Nexter) Next() {
 		n.p = n.q
 		n.q = n.q.l
 	}
-
-	return
 }
 func (a *Atter) End() bool {
 	// we are only end, when the tree is empty, or no smaller or equal key
