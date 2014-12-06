@@ -18,12 +18,28 @@ type Nexter struct {
 func (n *Nexter) End() bool {
 	return n.q == nil
 }
+func (n *Nexter) Map() []byte {
+	return n.p.Val
+}
+
+func (n *Nexter) Upd(b []byte) {
+	if uint(len(b)) > uint(n.gap()) {
+		print("\nExceeded gap len.\n")
+	}
+	n.p.Val = b
+}
+func (a *Atter) Map() []byte {
+	return a.p.Val
+}
+
+func (a *Atter) Upd(b []byte) {
+}
 func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key
 }
 func (n *Nexter) Next() {
 
-	fmt.Printf("som %p %p \n", n.p, n.q)
+//	fmt.Printf("som %p %p \n", n.p, n.q)
 
 	// lezem do lava
 	for n.p.l == n.q || n.p.r == n.q {

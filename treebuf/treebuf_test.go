@@ -17,6 +17,7 @@ func TestMy0(t *testing.T) {
 	defer colmgr.Destroy(&cool)        // We destroy the collection
 
 	vala := []byte("hello")
+	valb := []byte("world")
 
 	// We put values to a collection
 
@@ -49,10 +50,20 @@ func TestMy0(t *testing.T) {
 	colmgr.Dump(&cool, 0)
 
 	for i := start.Next(); !i.End(); i.Next() {
-		fmt.Println(i)
+
+		window := i.Map()
+
+		fmt.Printf("%s", window)
+
+		i.Upd(valb)
+
 	}
 
-	fmt.Println("")
+	for i := start.Next(); !i.End(); i.Next() {
+		window := i.Map()
+
+		fmt.Printf("%s", window)
+	}
 
 	// now we loop around the collection and put an actual values
 	// from start to end
