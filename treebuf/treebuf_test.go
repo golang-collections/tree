@@ -16,6 +16,8 @@ func TestMy0(t *testing.T) {
 
 	vala := []byte("hello")
 
+	// We put values to a collection
+
 	colmgr.MkNode(&cool, 512, vala)
 
 	colmgr.MkNode(&cool, 256, vala)
@@ -26,11 +28,16 @@ func TestMy0(t *testing.T) {
 	colmgr.MkNode(&cool, 640, vala)
 	colmgr.MkNode(&cool, 896, vala)
 
+	// We create iterators at various spots in the collection
+
 	at := colmgr.At(&cool, 512)
 	near := colmgr.At(&cool, 513)
+	start := colmgr.At(&cool, colmgr.Begin)
+	end := colmgr.At(&cool, colmgr.End)
 	_ = at
 	_ = near
-
+	_ = start
+	_ = end
 
 
 	// now we loop around the collection and put an actual values
