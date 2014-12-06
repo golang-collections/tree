@@ -5,10 +5,6 @@ import (
 	"unsafe"
 )
 
-const (
-	thread_safe_mknod = true
-)
-
 func CmpSwapPtr(addr **Node, val *Node) (swapped bool) {
 	if !thread_safe_mknod {
 		(*addr) = val

@@ -2,7 +2,7 @@ package treebuf
 
 import (
 	"example.com/repo.git/colmgr"
-//	"fmt"
+	"fmt"
 )
 
 type Root struct {
@@ -68,4 +68,36 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 	now := &r.trunk
 
 	return &Atter{key:key, p:now}
+}
+
+// XXX /////////////////////////////////////////////////////////////////////////
+
+func (r *Node) Dump(f byte, d uint) {
+	if r.l != nil {
+		r.l.Dump(f, d+1)
+	}
+	for i := uint(0) ; i < d; i++ {
+		fmt.Printf(" ")
+	}
+	fmt.Printf("[%v]\n", r)
+	if r.r != nil {
+		r.r.Dump(f, d+1)
+	}
+}
+
+func (r *Root) Dump(f byte) {
+	fmt.Printf("Dumping the tree %p with format %d \n", r, f)
+	if r.trunk.r != nil {
+		r.trunk.r.Dump(f, 0)
+	}
+}
+
+// XXX /////////////////////////////////////////////////////////////////////////
+
+func (r *Root) Destroy() {
+	if debug_destructor {
+		r.trunk.l = &r.trunk
+	}
+	r.trunk.r = nil
+	// FIXME: more cleanup?
 }

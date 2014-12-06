@@ -45,9 +45,16 @@ func TestMy0(t *testing.T) {
 
 	spew.Dump(root)
 
+	colmgr.Dump(&cool, 0)
+
+
+
+/*
 	for i := start.Next(); !i.End(); i.Next() {
 		fmt.Println(i)
 	}
+*/
+	fmt.Println("")
 
 	// now we loop around the collection and put an actual values
 	// from start to end
