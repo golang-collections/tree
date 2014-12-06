@@ -22,17 +22,34 @@ func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key
 }
 func (n *Nexter) Next() {
-	n.p = n.q
-	if n.q.r != nil {
-		n.q = n.q.r
-		for n.q.l != nil {
-			n.q = n.q.l
-		}
+
+	if n.q.l == nil && n.q.r == nil {
+		t := n.q
+		n.q = n.p
+		n.p = t
+	}
+
+	// vyliezam z prava
+	if n.q.r == n.p {
+		n.p = n.q
+		n.q = n.q.p
 		return
 	}
-	fmt.Println("v pravo nic neni ideme hore\n")
-	// v pravo nic neni ideme hore
 
+	// vyliezam z lava
+	if n.q.l == n.p {
+		n.p = n.q
+		n.q = n.q.r
+		return
+	}
+
+	// lezem do lava
+	for n.q.l != nil {
+		n.p = n.q
+		n.q = n.q.l
+	}
+
+	return
 }
 func (a *Atter) End() bool {
 	// we are only end, when the tree is empty, or no smaller or equal key
@@ -46,10 +63,17 @@ func (a *Atter) End() bool {
 func (a *Atter) Next() colmgr.Nexter { // we are only end, when the tree is empty
 	fmt.Println("Idem dalej s attera\n")
 
-	n := &Nexter{p: a.p, q: a.p}
-	fmt.Printf("som %p %p \n", n.p, n.q)
-	n.Next()
-	fmt.Printf("som %p %p \n", n.p, n.q)
+	q := a.p
+
+	if q.l != nil {
+		q = q.l
+	} else if q.r != nil {
+		q = q.r
+	} else {
+		q = q.p
+	}
+
+	n := &Nexter{p: a.p, q: q}
 	return n
 }
 
@@ -60,25 +84,23 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 	now := r.trunk.r
 	ok := now
 
-//	for now.l != nil && now.r != nil {
 	for now.r != nil && now.Key < key {
-	fmt.Printf(".. key=%d %p\n", key, now)
+//	fmt.Printf(".. key=%d %p\n", key, now)
 		ok = now
 		now = now.r
 	}
 
 	for now.l != nil && now.Key > key {
-	fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
+//	fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
 		now = now.l
 	}
 
 	if now.Key > key && ok.Key < now.Key {
-	fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
+//	fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
 		now = ok
 
 	} 
 
-//	}
-	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
+//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
 }
