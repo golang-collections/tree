@@ -36,9 +36,6 @@ func mk(key uintptr, val []byte, now *Node) {
 }
 
 func (r *Root) MkNode(key uintptr, val []byte) {
-	if debug_destructor && r.trunk.l == &r.trunk {
-		panic("Dead tree")
-	}
 	if r.trunk.r == nil {
 		if CmpSwapPtr(&r.trunk.r, node(key, val, nil)) {
 			return
