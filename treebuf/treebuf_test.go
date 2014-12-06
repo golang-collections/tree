@@ -43,7 +43,12 @@ func TestMy0(t *testing.T) {
 	// now we loop around the collection and put an actual values
 	// from start to end
 /*
+
+	// print the len
 	print(len(cool))
+
+	// do a subslice
+	foo := slice(cool, 50, 100)
 
 	for i, j := range cool {
 		print(i, j)
