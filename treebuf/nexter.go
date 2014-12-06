@@ -38,17 +38,25 @@ func (n *Nexter) Next() {
 
 //	for n.q.r == n.p || n.q.l == n.p {
 	// vyliezam z prava
-	if n.q.r == n.p {
+	for n.q.r == n.p && n.q.p != nil {
 		n.p = n.q
 		n.q = n.q.p
-//		n.Next()
+		if n.q.l == n.p {
+			n.p = n.q
+			n.q = n.q.r
+			return
+		}
+	}
+	if n.q.r == n.p && n.q.p == nil {
+		n.p = n.q
+		n.q = nil
 		return
 	}
+
 	// vyliezam z lava
 	if n.q.l == n.p {
 		n.p = n.q
 		n.q = n.q.r
-		n.Next()
 		return
 	}
 //	}
