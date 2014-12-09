@@ -115,17 +115,27 @@ func TestTryPut0(t *testing.T) {
 	rightsubtree.MkNode(640, vala)
 	rightsubtree.MkNode(896, vala)
 
+	begin := root.At(colmgr.Begin)
 
 	colmgr.Dump(&cool, 0)
 
-	/*
-		var h [1][]byte
+	for i := begin.Next(); !i.End(); i.Next() {
+		window := i.Map()
+		fmt.Printf("%s", window)
 
-		Append(&h, byte(19), byte(5), byte(4), byte(3))
-		if Checksum(h) != 4433864318700699030 {
-			t.Error("Variadic append")
+
+		j := i.At(0)	// freeze nexter on the current slice 0th object
+		_ = j
+		ni := j.Next()	// unfreeze a nexter
+
+		foo := fmt.Sprint("%v", i)
+		bar := fmt.Sprint("%v", ni)
+
+
+		if foo != bar {
+			t.Fatal("next is not same:", i, ni)
 		}
-	*/
+	}
 }
 
 /*
