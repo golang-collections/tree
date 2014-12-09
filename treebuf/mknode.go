@@ -2,14 +2,15 @@ package treebuf
 
 import (
 	"fmt"
+	"github.com/anlhord/generic"
 )
 
 // SCAFFOLDING OPERATORS ///////////////////////////////////////////////////////
-func node(key uintptr, val []byte, p *Node) *Node {
+func node(key uintptr, val generic.Value, p *Node) *Node {
 	return &Node{r: nil, l: nil, p: p, Key: key, Val: val}
 }
 
-func mk(key uintptr, val []byte, now *Node) {
+func mk(key uintptr, val generic.Value, now *Node) {
 	next := now
 
 	for {
@@ -39,7 +40,7 @@ func mk(key uintptr, val []byte, now *Node) {
 	}
 }
 
-func (r *Root) MkNode(key uintptr, val []byte) {
+func (r *Root) MkNode(key uintptr, val generic.Value) {
 
 	fmt.Printf("MkNode to %d.\n", key)
 
