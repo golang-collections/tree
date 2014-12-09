@@ -12,6 +12,31 @@ type Atter struct {
 	p   *Node   // never nil
 }
 
+type NexterAtter struct {
+	Atter
+	direction byte
+}
+func (a *NexterAtter) Map() generic.Value {
+	return a.Atter.Map()
+}
+
+func (a *NexterAtter) Upd(b generic.Value) {
+	a.Atter.Upd(b)
+}
+func (a *NexterAtter) Fix() {
+	a.Atter.Fix()
+}
+
+func (a *NexterAtter) At(key uintptr) colmgr.Atter {
+	return a.Atter.At(key)
+}
+func (a *NexterAtter) End() bool {
+	return a.Atter.End()
+}
+
+func (a *NexterAtter) Next() colmgr.Nexter { // we are only end, when the tree is empty
+	return a.Atter.Next()
+}
 type Nexter struct {
 	p, q *Node // p is never nil
 }
