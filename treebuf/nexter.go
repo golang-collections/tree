@@ -15,6 +15,10 @@ type Nexter struct {
 	p, q *Node // p is never nil
 }
 
+// elem is the element you want to fix on in a slice
+func (n *Nexter) At(elem uintptr) Atter {
+	return Atter{key: n.p.Key + elem, p: n.p}
+}
 func (n *Nexter) End() bool {
 	return n.q == nil
 }
@@ -38,18 +42,16 @@ func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key
 }
 func (n *Nexter) Next() {
-
-//	fmt.Printf("som %p %p \n", n.p, n.q)
+	//	fmt.Printf("som %p %p \n", n.p, n.q)
 
 	// lezem do lava
 	for n.p.l == n.q || n.p.r == n.q {
 		if n.q.l != nil {
-		n.p = n.q
+			n.p = n.q
 			n.q = n.q.l
 		} else if n.q.r != nil {
-		n.p = n.q
+			n.p = n.q
 			n.q = n.q.r
-
 		} else {
 			break
 		}
@@ -63,10 +65,7 @@ func (n *Nexter) Next() {
 		return
 	}
 
-
-
-
-//	for n.q.r == n.p || n.q.l == n.p {
+	//	for n.q.r == n.p || n.q.l == n.p {
 	// vyliezam z prava
 	for n.q.r == n.p && n.q.p != nil {
 		n.p = n.q
@@ -89,16 +88,16 @@ func (n *Nexter) Next() {
 		n.q = n.q.r
 		return
 	}
-//	}
-
+	//	}
 
 }
-func (a *Atter) End() bool {
-	// we are only end, when the tree is empty, or no smaller or equal key
-	if a.p.Key > a.key {
-		return true
+func (a *Atter) Fix() {
+	for a.p.l == a.p.r {
+		a.p = a.p.l
 	}
+}
 
+func (a *Atter) End() bool {
 	return a.p.Trunk()
 }
 
@@ -127,22 +126,22 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 	ok := now
 
 	for now.r != nil && now.Key < key {
-//	fmt.Printf(".. key=%d %p\n", key, now)
+		//	fmt.Printf(".. key=%d %p\n", key, now)
 		ok = now
 		now = now.r
 	}
 
 	for now.l != nil && now.Key > key {
-//	fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
+		//	fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
 		now = now.l
 	}
 
 	if now.Key > key && ok.Key < now.Key {
-//	fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
+		//	fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
 		now = ok
 
-	} 
+	}
 
-//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
+	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
 }
