@@ -13,7 +13,7 @@ func TestSeekStart0(t *testing.T) {
 }
 
 func TestMy0(t *testing.T) {
-	var cool generic.Type       // this is the collection reference
+	var cool generic.Collection // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
@@ -35,11 +35,11 @@ func TestMy0(t *testing.T) {
 	// We create iterators at various spots in the collection
 
 	root := colmgr.At(&cool, colmgr.Root)
-	_ = root.At( 767)
-	at := root.At( 768)
-	near := root.At( 769)
-	start := root.At( colmgr.Begin)
-	end := root.At( colmgr.End)
+	_ = root.At(767)
+	at := root.At(768)
+	near := root.At(769)
+	start := root.At(colmgr.Begin)
+	end := root.At(colmgr.End)
 	_ = at
 	_ = near
 	_ = start
@@ -88,7 +88,22 @@ func TestMy0(t *testing.T) {
 
 }
 
-func TestAppend0(t *testing.T) {
+func TestTryPut0(t *testing.T) {
+	var cool generic.Collection // this is the collection reference
+	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
+	defer colmgr.Destroy(&cool) // We destroy the collection
+
+	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
+	_ = root
+
+	vala := []byte("hello")
+	valb := []byte("world")
+
+	_ = vala
+	_ = valb
+
+	colmgr.Dump(&cool, 0)
+
 	/*
 		var h [1][]byte
 
