@@ -3,6 +3,7 @@ package treebuf
 import (
 	"example.com/repo.git/colmgr"
 	"fmt"
+	"github.com/anlhord/generic"
 )
 
 // ITERATORS STUFF /////////////////////////////////////////////////////////////
@@ -22,21 +23,21 @@ func (n *Nexter) At(elem uintptr) Atter {
 func (n *Nexter) End() bool {
 	return n.q == nil
 }
-func (n *Nexter) Map() []byte {
+func (n *Nexter) Map() generic.Value {
 	return n.p.Val
 }
 
-func (n *Nexter) Upd(b []byte) {
+func (n *Nexter) Upd(b generic.Value) {
 	if uint(len(b)) > uint(n.gap()) {
 		print("\nExceeded gap len.\n")
 	}
 	n.p.Val = b
 }
-func (a *Atter) Map() []byte {
+func (a *Atter) Map() generic.Value {
 	return a.p.Val
 }
 
-func (a *Atter) Upd(b []byte) {
+func (a *Atter) Upd(b generic.Value) {
 }
 func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key
@@ -96,6 +97,7 @@ func (a *Atter) Fix() {
 		a.p = a.p.l
 	}
 }
+
 // At() from non-root node is slow
 func (a *Atter) At(key uintptr) colmgr.Atter {
 	return &Atter{key: key, p: at(key, up(a.p))}
@@ -126,7 +128,6 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 		return &Atter{key: key, p: &r.trunk}
 	}
 	now := at(key, r.trunk.r)
-
 
 	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
