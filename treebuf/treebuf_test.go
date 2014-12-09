@@ -3,6 +3,7 @@ package treebuf
 import (
 	"example.com/repo.git/colmgr"
 	"fmt"
+	"github.com/anlhord/generic"
 	"github.com/davecgh/go-spew/spew"
 	"testing"
 )
@@ -12,9 +13,9 @@ func TestSeekStart0(t *testing.T) {
 }
 
 func TestMy0(t *testing.T) {
-	var cool [colmgr.Collection][]byte // this is the collection reference
-	colmgr.Init(&cool, Root{})         // We initialize the collection
-	defer colmgr.Destroy(&cool)        // We destroy the collection
+	var cool generic.Type       // this is the collection reference
+	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
+	defer colmgr.Destroy(&cool) // We destroy the collection
 
 	vala := []byte("hello")
 	valb := []byte("world")
