@@ -102,6 +102,20 @@ func TestTryPut0(t *testing.T) {
 	_ = vala
 	_ = valb
 
+	root.MkNode(512, vala)
+
+	root.MkNode(256, vala)
+	root.MkNode(768, vala)
+
+	leftsubtree := root.At(256)
+	rightsubtree := root.At(768)
+
+	leftsubtree.MkNode(128, vala)
+	leftsubtree.MkNode(384, vala)
+	rightsubtree.MkNode(640, vala)
+	rightsubtree.MkNode(896, vala)
+
+
 	colmgr.Dump(&cool, 0)
 
 	/*

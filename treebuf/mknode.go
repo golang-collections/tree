@@ -45,7 +45,7 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 	fmt.Printf("MkNode to %d.\n", key)
 
 	if r.trunk.r == nil {
-		newval := node(key, val, nil)
+		newval := node(key, val, &r.trunk)
 		fmt.Printf("newwal to %d.\n", newval)
 		if CmpSwapPtr(&(r.trunk.r), newval) {
 			return
