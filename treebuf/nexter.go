@@ -2,7 +2,6 @@ package treebuf
 
 import (
 	"example.com/repo.git/colmgr"
-	"fmt"
 	"github.com/anlhord/generic"
 )
 
@@ -35,7 +34,19 @@ func (a *NexterAtter) End() bool {
 }
 
 func (a *NexterAtter) Next() colmgr.Nexter { // we are only end, when the tree is empty
-	return a.Atter.Next()
+	n := (&a.Atter).next()
+	switch a.direction {
+	case 1:
+		n.q = n.p.l
+	case 2:
+		n.q = n.p.r
+	case 3:
+		n.q = n.p.p
+	default:
+		n.q = nil
+	}
+
+	return n
 }
 type Nexter struct {
 	p, q *Node // p is never nil
@@ -43,7 +54,18 @@ type Nexter struct {
 
 // elem is the element you want to fix on in a slice
 func (n *Nexter) At(elem uintptr) colmgr.Atter {
-	return &Atter{key: n.p.Key + elem, p: n.p}
+	var dir byte
+
+	switch n.q {
+	case n.p.l:
+		dir = 1
+	case n.p.r:
+		dir = 2
+	case n.p.p:
+		dir = 3
+	}
+
+	return &NexterAtter{Atter:Atter{key: n.p.Key + elem, p: n.p}, direction: dir}
 }
 func (n *Nexter) End() bool {
 	return n.q == nil
@@ -131,9 +153,7 @@ func (a *Atter) End() bool {
 	return a.p.Trunk()
 }
 
-func (a *Atter) Next() colmgr.Nexter { // we are only end, when the tree is empty
-	fmt.Println("Idem dalej s attera\n")
-
+func (a *Atter) next() *Nexter {
 	q := a.p
 
 	if q.l != nil {
@@ -146,6 +166,10 @@ func (a *Atter) Next() colmgr.Nexter { // we are only end, when the tree is empt
 
 	n := &Nexter{p: a.p, q: q}
 	return n
+}
+
+func (a *Atter) Next() colmgr.Nexter {
+	return (a).next()
 }
 
 func (r *Root) At(key uintptr) colmgr.Atter {
