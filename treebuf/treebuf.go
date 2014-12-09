@@ -17,7 +17,7 @@ type Node struct {
 }
 
 func (Root) Root() colmgr.Collector {
-	return &Root{trunk: Node{Key: colmgr.End, Val: nil}}
+	return &Root{trunk: Node{Key: colmgr.Root, Val: nil}}
 }
 func (n *Node) Trunk() bool {
 	return n.p == nil
@@ -49,7 +49,7 @@ func (r *Root) Dump(f byte) {
 
 func (r *Root) Destroy() {
 	if debug_destructor {
-		if r.trunk.p != nil || r.trunk.l != nil || r.trunk.Key != colmgr.End {
+		if r.trunk.p != nil || r.trunk.l != nil || r.trunk.Key != colmgr.Root {
 			panic("Dubious trunk")
 		}
 		r.trunk.l = &r.trunk
