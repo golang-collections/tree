@@ -96,7 +96,10 @@ func (a *Atter) Fix() {
 		a.p = a.p.l
 	}
 }
-
+// At() from non-root node is slow
+func (a *Atter) At(key uintptr) colmgr.Atter {
+	return &Atter{key: key, p: at(key, up(a.p))}
+}
 func (a *Atter) End() bool {
 	return a.p.Trunk()
 }
@@ -119,10 +122,23 @@ func (a *Atter) Next() colmgr.Nexter { // we are only end, when the tree is empt
 }
 
 func (r *Root) At(key uintptr) colmgr.Atter {
-	if r.trunk.r == nil {
+	if r.trunk.r == nil || key == colmgr.Root {
 		return &Atter{key: key, p: &r.trunk}
 	}
-	now := r.trunk.r
+	now := at(key, r.trunk.r)
+
+
+	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
+	return &Atter{key: key, p: now}
+}
+func up(now *Node) *Node {
+	for now.p != nil {
+		now = now.p
+	}
+	return now
+}
+
+func at(key uintptr, now *Node) *Node {
 	ok := now
 
 	for now.r != nil && now.Key < key {
@@ -141,7 +157,5 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 		now = ok
 
 	}
-
-	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
-	return &Atter{key: key, p: now}
+	return now
 }

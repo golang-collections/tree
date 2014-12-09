@@ -34,12 +34,12 @@ func TestMy0(t *testing.T) {
 
 	// We create iterators at various spots in the collection
 
-	root := colmgr.At(&cool, 512)
-	_ = colmgr.At(&cool, 767)
-	at := colmgr.At(&cool, 768)
-	near := colmgr.At(&cool, 769)
-	start := colmgr.At(&cool, colmgr.Begin)
-	end := colmgr.At(&cool, colmgr.End)
+	root := colmgr.At(&cool, colmgr.Root)
+	_ = root.At( 767)
+	at := root.At( 768)
+	near := root.At( 769)
+	start := root.At( colmgr.Begin)
+	end := root.At( colmgr.End)
 	_ = at
 	_ = near
 	_ = start

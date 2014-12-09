@@ -3,17 +3,17 @@ package treebuf
 import (
 	"example.com/repo.git/colmgr"
 	"fmt"
+	"github.com/anlhord/generic"
 )
 
 type Root struct {
 	trunk Node
-	//	RWMutex		// not needed currently
 }
 
 type Node struct {
 	l, r, p *Node
-	Key     uintptr // this is the key
-	Val     []byte  // this is the val
+	Key     uintptr       // this is the key
+	Val     generic.Value // this is the val
 }
 
 func (Root) Root() colmgr.Collector {
