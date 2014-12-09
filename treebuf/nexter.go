@@ -17,8 +17,8 @@ type Nexter struct {
 }
 
 // elem is the element you want to fix on in a slice
-func (n *Nexter) At(elem uintptr) Atter {
-	return Atter{key: n.p.Key + elem, p: n.p}
+func (n *Nexter) At(elem uintptr) colmgr.Atter {
+	return &Atter{key: n.p.Key + elem, p: n.p}
 }
 func (n *Nexter) End() bool {
 	return n.q == nil
