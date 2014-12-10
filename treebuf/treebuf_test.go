@@ -157,16 +157,13 @@ func TestTryBadMkNode0(t *testing.T) {
 	root.MkNode(256, valb)
 	root.MkNode(768, valb)
 
-	print("---------------\n")
 
-	colmgr.Dump(&cool, 0)
-
-	print("---------------\n")
 
 	leftsubtree := root.At(256)
 	rightsubtree := root.At(768)
 
-	spew.Dump("lstree:", leftsubtree)
+//	this is ok
+//	spew.Dump("lstree:", leftsubtree)
 
 	rightsubtree.MkNode(128, vala)
 	rightsubtree.MkNode(384, vala)
@@ -178,6 +175,49 @@ func TestTryBadMkNode0(t *testing.T) {
 	colmgr.Dump(&cool, 0)
 
 	print("---------------\n")
+}
+
+func TestTryBadMkNode1(t *testing.T) {
+	// This function demonstrates how a broken tree is produced
+
+	var cool generic.Collection // this is the collection reference
+	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
+	defer colmgr.Destroy(&cool) // We destroy the collection
+
+	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
+	_ = root
+
+	vala := []byte("bad")
+	valb := []byte("good")
+
+	_ = vala
+	_ = valb
+
+	root.MkNode(512, valb)
+	root.MkNode(599, valb)
+	root.MkNode(513, valb)
+	root.MkNode(598, valb)
+
+	// todo put 514
+
+	root.MkNode(2, valb)
+	root.MkNode(511, valb)
+	root.MkNode(3, valb)
+	root.MkNode(510, valb)
+
+	nower := root.At(510)
+
+//	print("---------------\n")
+
+//	colmgr.Dump(&cool, 0)
+
+	nower.MkNode(514, vala)
+
+//	print("---------------\n")
+
+//	colmgr.Dump(&cool, 0)
+
+//	print("---------------\n")
 }
 
 /*

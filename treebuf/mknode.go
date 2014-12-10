@@ -13,7 +13,7 @@ func mk(key uintptr, val generic.Value, now *Node) {
 	next := now
 
 	for {
-		fmt.Printf("key %d nowkey %d\n", key, now.Key)
+//		fmt.Printf("key %d nowkey %d\n", key, now.Key)
 
 		if key < now.Key {
 			next = now.l
@@ -41,6 +41,14 @@ func mk(key uintptr, val generic.Value, now *Node) {
 	}
 }
 
+func mkup(key uintptr, n *Node) *Node {
+	for n.p != nil && ((n.Key < n.p.Key && key >= n.p.Key) || (n.Key >= n.p.Key && key < n.p.Key)) {
+		fmt.Printf("MKUP from %p to %p.\n", n, n.p)
+		n = n.p
+	}
+	return n
+}
+
 // SCAFFOLDING OPERATOR
 func (r *Root) MkNode(key uintptr, val generic.Value) {
 
@@ -50,8 +58,9 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 }
 
 // If node truly is in At node's subtree use this
+// It's not a bug it's a feature (performance)
 func (a *Atter) MkNode(key uintptr, val generic.Value) {
 	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 
-	mk(key, val, a.p)
+	mk(key, val, mkup(key, a.p))
 }
