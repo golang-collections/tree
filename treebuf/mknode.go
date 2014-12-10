@@ -1,7 +1,7 @@
 package treebuf
 
 import (
-//	"fmt"
+	"fmt"
 	"github.com/anlhord/generic"
 )
 
@@ -60,7 +60,7 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 // If node truly is in At node's subtree use this
 // It's not a bug it's a feature (performance)
 func (a *Atter) MkNode(key uintptr, val generic.Value) {
-//	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
+	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 
 	mk(key, val, mkup(key, a.p))
 }

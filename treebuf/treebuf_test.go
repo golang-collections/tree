@@ -60,6 +60,8 @@ func TestMy0(t *testing.T) {
 
 		j.Upd(valb)
 
+		i = j.Next()
+
 	}
 
 	for i := start.Next(); !i.End(); i.Next() {
@@ -68,6 +70,8 @@ func TestMy0(t *testing.T) {
 		window := j.Map()
 
 		fmt.Printf("%s", window)
+
+		i = j.Next()
 	}
 
 	// now we loop around the collection and put an actual values
@@ -249,6 +253,13 @@ func TestTryAppend0(t *testing.T) {
 
 	end.Append(vala)
 
+	end.Fix()
+
+	end.Append(vala)
+
+	print("---------------\n")
+
+	colmgr.Dump(&cool, 0)
 }
 /*
 func TestAppend1(t *testing.T) {
