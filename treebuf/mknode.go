@@ -46,27 +46,11 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 
 	fmt.Printf("MkNode to %d.\n", key)
 
-	if r.trunk.r == nil {
-		newval := node(key, val, &r.trunk)
-		fmt.Printf("newwal to %d.\n", newval)
-		if CmpSwapPtr(&(r.trunk.r), newval) {
-			return
-		}
-	}
-
-	mk(key, val, r.trunk.r)
+	mk(key, val, &r.trunk)
 }
 
 func (a *Atter) MkNode(key uintptr, val generic.Value) {
 	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 
-	if a.p.p == nil {
-		if a.p.r == nil {
-			a.p.r = node(key, val, a.p)
-			return
-		}
-		mk(key, val, a.p.r)
-		return
-	}
 	mk(key, val, a.p)
 }

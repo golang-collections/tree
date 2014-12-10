@@ -40,8 +40,8 @@ func (r *Node) Dump(f byte, d uint) {
 
 func (r *Root) Dump(f byte) {
 	fmt.Printf("Dumping the tree %p with format %d \n", r, f)
-	if r.trunk.r != nil {
-		r.trunk.r.Dump(f, 0)
+	if r.trunk.l != nil {
+		r.trunk.l.Dump(f, 0)
 	}
 }
 
@@ -49,11 +49,10 @@ func (r *Root) Dump(f byte) {
 
 func (r *Root) Destroy() {
 	if debug_destructor {
-		if r.trunk.p != nil || r.trunk.l != nil || r.trunk.Key != colmgr.Root {
+		if r.trunk.p != nil || r.trunk.r != nil || r.trunk.Key != colmgr.Root {
 			panic("Dubious trunk")
 		}
-		r.trunk.l = &r.trunk
 	}
-	r.trunk.r = nil
+	r.trunk.l = nil
 	// FIXME: more cleanup?
 }
