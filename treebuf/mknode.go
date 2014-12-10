@@ -1,7 +1,7 @@
 package treebuf
 
 import (
-	"fmt"
+//	"fmt"
 	"github.com/anlhord/generic"
 )
 
@@ -43,7 +43,7 @@ func mk(key uintptr, val generic.Value, now *Node) {
 
 func mkup(key uintptr, n *Node) *Node {
 	for n.p != nil && ((n.Key < n.p.Key && key >= n.p.Key) || (n.Key >= n.p.Key && key < n.p.Key)) {
-		fmt.Printf("MKUP from %p to %p.\n", n, n.p)
+//		fmt.Printf("MKUP from %p to %p.\n", n, n.p)
 		n = n.p
 	}
 	return n
@@ -52,7 +52,7 @@ func mkup(key uintptr, n *Node) *Node {
 // SCAFFOLDING OPERATOR
 func (r *Root) MkNode(key uintptr, val generic.Value) {
 
-	fmt.Printf("MkNode to %d.\n", key)
+//	fmt.Printf("MkNode to %d.\n", key)
 
 	mk(key, val, &r.trunk)
 }
@@ -60,7 +60,7 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 // If node truly is in At node's subtree use this
 // It's not a bug it's a feature (performance)
 func (a *Atter) MkNode(key uintptr, val generic.Value) {
-	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
+//	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 
 	mk(key, val, mkup(key, a.p))
 }

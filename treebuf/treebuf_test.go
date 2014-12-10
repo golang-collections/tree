@@ -52,16 +52,20 @@ func TestMy0(t *testing.T) {
 
 	for i := start.Next(); !i.End(); i.Next() {
 
-		window := i.Map()
+		j := i.At(0)
+
+		window := j.Map()
 
 		fmt.Printf("%s", window)
 
-		i.Upd(valb)
+		j.Upd(valb)
 
 	}
 
 	for i := start.Next(); !i.End(); i.Next() {
-		window := i.Map()
+		j := i.At(0)
+
+		window := j.Map()
 
 		fmt.Printf("%s", window)
 	}
@@ -120,12 +124,13 @@ func TestTryFreezeNexter0(t *testing.T) {
 	colmgr.Dump(&cool, 0)
 
 	for i := begin.Next(); !i.End(); i.Next() {
-		window := i.Map()
+		j := i.At(0)	// freeze nexter on the current slice 0th object
+		_ = j
+
+		window := j.Map()
 		fmt.Printf("%s", window)
 
 
-		j := i.At(0)	// freeze nexter on the current slice 0th object
-		_ = j
 		ni := j.Next()	// unfreeze a nexter
 
 		foo := fmt.Sprint("%v", i)
@@ -139,6 +144,9 @@ func TestTryFreezeNexter0(t *testing.T) {
 }
 
 func TestTryBadMkNode0(t *testing.T) {
+	// This test demonstrates how a correct tree is produced
+	// by a correct use of Atter.MkNode()
+
 	var cool generic.Collection // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
@@ -178,7 +186,8 @@ func TestTryBadMkNode0(t *testing.T) {
 }
 
 func TestTryBadMkNode1(t *testing.T) {
-	// This function demonstrates how a broken tree is produced
+	// This test demonstrates how a broken tree is produced
+	// by an incorrect use of Atter.MkNode()
 
 	var cool generic.Collection // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
@@ -220,6 +229,27 @@ func TestTryBadMkNode1(t *testing.T) {
 //	print("---------------\n")
 }
 
+func TestTryAppend0(t *testing.T) {
+	// This test demonstrates how a broken tree is produced
+	// by an incorrect use of Atter.MkNode()
+
+	var cool generic.Collection // this is the collection reference
+	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
+	defer colmgr.Destroy(&cool) // We destroy the collection
+
+	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
+	_ = root
+
+	vala := []byte("X")
+	_ = vala
+
+	end := root.At(colmgr.End)
+
+	_ = end
+
+	end.Append(vala)
+
+}
 /*
 func TestAppend1(t *testing.T) {
 
