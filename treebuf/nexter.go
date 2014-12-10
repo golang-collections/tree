@@ -132,9 +132,22 @@ func (n *Nexter) Next() {
 
 }
 func (a *Atter) Fix() {
+	if a.key == colmgr.End {
+		if a.p.p == nil && a.p.l != nil {
+			a.p = a.p.l
+		}
+		for a.p.r != nil {
+			a.p = a.p.r
+		}
+		print("FIXed End \n")
+		return
+	}
+/*
+	nil == nil ?
 	for a.p.l == a.p.r {
 		a.p = a.p.l
 	}
+*/
 }
 
 // FIXME: At() from non-root node is slow
