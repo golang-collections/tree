@@ -49,7 +49,6 @@ func mkup(key uintptr, n *Node) *Node {
 	return n
 }
 
-// SCAFFOLDING OPERATOR
 func (r *Root) MkNode(key uintptr, val generic.Value) {
 
 //	fmt.Printf("MkNode to %d.\n", key)
@@ -57,8 +56,9 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 	mk(key, val, &r.trunk)
 }
 
+
 // If node truly is in At node's subtree use this
-// It's not a bug it's a feature (performance)
+// This operator is UNSAFE and destroys the tree if the precondition is not met.
 func (a *Atter) MkNode(key uintptr, val generic.Value) {
 	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 

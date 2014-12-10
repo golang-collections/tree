@@ -71,21 +71,12 @@ func (n *Nexter) At(elem uintptr) colmgr.Atter {
 func (n *Nexter) End() bool {
 	return n.q == nil
 }
-func (n *Nexter) Map() generic.Value {
-	return n.p.Val
-}
-
-func (n *Nexter) Upd(b generic.Value) {
-	if uint(len(b)) > uint(n.gap()) {
-		print("\nExceeded gap len.\n")
-	}
-	n.p.Val = b
-}
 func (a *Atter) Map() generic.Value {
 	return a.p.Val
 }
 
 func (a *Atter) Upd(b generic.Value) {
+	a.p.Val = b
 }
 func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key
