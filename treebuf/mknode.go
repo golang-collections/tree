@@ -5,7 +5,6 @@ import (
 	"github.com/anlhord/generic"
 )
 
-// SCAFFOLDING OPERATORS ///////////////////////////////////////////////////////
 func node(key uintptr, val generic.Value, p *Node) *Node {
 	return &Node{r: nil, l: nil, p: p, Key: key, Val: val}
 }
@@ -14,6 +13,8 @@ func mk(key uintptr, val generic.Value, now *Node) {
 	next := now
 
 	for {
+		fmt.Printf("key %d nowkey %d\n", key, now.Key)
+
 		if key < now.Key {
 			next = now.l
 			if next == nil {
@@ -40,6 +41,7 @@ func mk(key uintptr, val generic.Value, now *Node) {
 	}
 }
 
+// SCAFFOLDING OPERATOR
 func (r *Root) MkNode(key uintptr, val generic.Value) {
 
 	fmt.Printf("MkNode to %d.\n", key)
@@ -53,4 +55,18 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 	}
 
 	mk(key, val, r.trunk.r)
+}
+
+func (a *Atter) MkNode(key uintptr, val generic.Value) {
+	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
+
+	if a.p.p == nil {
+		if a.p.r == nil {
+			a.p.r = node(key, val, a.p)
+			return
+		}
+		mk(key, val, a.p.r)
+		return
+	}
+	mk(key, val, a.p)
 }

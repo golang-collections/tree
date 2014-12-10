@@ -88,7 +88,7 @@ func TestMy0(t *testing.T) {
 
 }
 
-func TestTryPut0(t *testing.T) {
+func TestTryFreezeNexter0(t *testing.T) {
 	var cool generic.Collection // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
@@ -136,6 +136,48 @@ func TestTryPut0(t *testing.T) {
 			t.Fatal("next is not same:", i, ni)
 		}
 	}
+}
+
+func TestTryBadMkNode0(t *testing.T) {
+	var cool generic.Collection // this is the collection reference
+	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
+	defer colmgr.Destroy(&cool) // We destroy the collection
+
+	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
+	_ = root
+
+	vala := []byte("bad")
+	valb := []byte("good")
+
+	_ = vala
+	_ = valb
+
+	root.MkNode(512, valb)
+
+	root.MkNode(256, valb)
+	root.MkNode(768, valb)
+
+	print("---------------\n")
+
+	colmgr.Dump(&cool, 0)
+
+	print("---------------\n")
+
+	leftsubtree := root.At(256)
+	rightsubtree := root.At(768)
+
+	spew.Dump("lstree:", leftsubtree)
+
+	rightsubtree.MkNode(128, vala)
+	rightsubtree.MkNode(384, vala)
+	leftsubtree.MkNode(640, vala)
+	leftsubtree.MkNode(896, vala)
+
+	print("---------------\n")
+
+	colmgr.Dump(&cool, 0)
+
+	print("---------------\n")
 }
 
 /*

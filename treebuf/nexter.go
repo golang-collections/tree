@@ -3,6 +3,7 @@ package treebuf
 import (
 	"example.com/repo.git/colmgr"
 	"github.com/anlhord/generic"
+//	"fmt"
 )
 
 // ITERATORS STUFF /////////////////////////////////////////////////////////////
@@ -145,9 +146,12 @@ func (a *Atter) Fix() {
 	}
 }
 
-// At() from non-root node is slow
+// FIXME: At() from non-root node is slow
 func (a *Atter) At(key uintptr) colmgr.Atter {
-	return &Atter{key: key, p: at(key, up(a.p))}
+	now := at(key, up(a.p))
+
+//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
+	return &Atter{key: key, p: now}
 }
 func (a *Atter) End() bool {
 	return a.p.Trunk()
@@ -178,7 +182,7 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 	}
 	now := at(key, r.trunk.r)
 
-	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
+//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
 }
 func up(now *Node) *Node {
