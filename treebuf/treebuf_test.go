@@ -251,11 +251,10 @@ func TestTryAppend0(t *testing.T) {
 
 	_ = end
 
-	end.Append(vala)
-
-	end.Fix()
-
-	end.Append(vala)
+	for i := 0 ; i < 20 ; i++ {
+		end.Append(vala)
+		end.Fix()
+	}
 
 	print("---------------\n")
 
