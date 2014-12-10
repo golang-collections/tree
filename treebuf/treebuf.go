@@ -7,6 +7,7 @@ import (
 )
 
 type Root struct {
+	generic.Is
 	trunk Node
 }
 

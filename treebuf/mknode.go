@@ -49,6 +49,7 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 	mk(key, val, &r.trunk)
 }
 
+// If node truly is in At node's subtree use this
 func (a *Atter) MkNode(key uintptr, val generic.Value) {
 	fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 
