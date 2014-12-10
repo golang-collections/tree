@@ -139,15 +139,15 @@ func (a *Atter) Fix() {
 		for a.p.r != nil {
 			a.p = a.p.r
 		}
-		print("FIXed End \n")
+		return
+	} else if a.key == colmgr.Begin {
+		for a.p.l != nil {
+			a.p = a.p.l
+		}
 		return
 	}
-/*
-	nil == nil ?
-	for a.p.l == a.p.r {
-		a.p = a.p.l
-	}
-*/
+	// FIXME: fix any atter
+	print("FIXME: fix any atter \n")
 }
 
 // FIXME: At() from non-root node is slow

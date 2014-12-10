@@ -20,21 +20,24 @@ func TestMy0(t *testing.T) {
 	vala := []byte("hello")
 	valb := []byte("world")
 
+
+	root := colmgr.At(&cool, colmgr.Root)
+
 	// We put values to a collection
 
-	colmgr.MkNode(&cool, 512, vala)
+	root.MkNode(512, vala)
 
-	colmgr.MkNode(&cool, 256, vala)
-	colmgr.MkNode(&cool, 768, vala)
+	root.MkNode(256, vala)
+	root.MkNode(768, vala)
 
-	colmgr.MkNode(&cool, 128, vala)
-	colmgr.MkNode(&cool, 384, vala)
-	colmgr.MkNode(&cool, 640, vala)
-	colmgr.MkNode(&cool, 896, vala)
+	root.MkNode(128, vala)
+	root.MkNode(384, vala)
+	root.MkNode(640, vala)
+	root.MkNode(896, vala)
+
 
 	// We create iterators at various spots in the collection
 
-	root := colmgr.At(&cool, colmgr.Root)
 	_ = root.At(767)
 	at := root.At(768)
 	near := root.At(769)
@@ -248,10 +251,10 @@ func TestTryAppend0(t *testing.T) {
 	_ = vala
 
 	end := root.At(colmgr.End)
-
 	_ = end
 
-	for i := 0 ; i < 20 ; i++ {
+
+	for i := 0 ; i < 10 ; i++ {
 		end.Append(vala)
 		end.Fix()
 	}
@@ -260,35 +263,3 @@ func TestTryAppend0(t *testing.T) {
 
 	colmgr.Dump(&cool, 0)
 }
-/*
-func TestAppend1(t *testing.T) {
-
-	var h [1][]byte
-
-	Append(&h, byte(254))
-	if Checksum(h) != 36342608889142753 {
-		t.Error("Simple byte append", Checksum(h))
-	}
-}
-
-func TestAppend2(t *testing.T) {
-	var h [1][]int
-	mmm := [3]int{1, 2, 3}
-
-	if ChecksumInt(h) != 2166136261 {
-		t.Error("Initial append")
-	}
-	Appends(&h, [1]int{0})
-	if ChecksumInt(h) != 36342608889142559 {
-		t.Error("0 int append")
-	}
-	Appends(&h, mmm)
-	if ChecksumInt(h) != 10900344298869587409 {
-		t.Error("123 int append")
-	}
-	Append(&h, 4, 5, 6)
-	if ChecksumInt(h) != 877089633685397766 {
-		t.Error("456 int append")
-	}
-}
-*/
