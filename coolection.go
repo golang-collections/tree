@@ -1,14 +1,14 @@
 package main
 
 import (
-        "fmt"
-//        "unsafe"
+	"fmt"
+	//        "unsafe"
 	"reflect"
- //       "math/rand"
+	//       "math/rand"
 )
 
-type Config struct {	// this will be inside the iterator& Root
-	lsum bool	// the structure operates in a left subtree sum mode
+type Config struct { // this will be inside the iterator& Root
+	lsum bool // the structure operates in a left subtree sum mode
 }
 type Collector interface {
 	Spawner
@@ -36,13 +36,11 @@ func Init(handle interface{}, initer Initer) {
 
 	fmt.Printf("Calling initer to %d.\n", p)
 
-
 }
 
 type Cursor interface {
-	Next() (Cursor)
-	Prev() (Cursor)
-
+	Next() Cursor
+	Prev() Cursor
 }
 
 func Destroy(handle interface{}) {

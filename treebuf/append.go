@@ -17,5 +17,5 @@ func (a *Atter) Append(val generic.Value) {
 	for now.r != nil {
 		now = now.r
 	}
-	mk(now.Key + uintptr(len(now.Val)), val, now)
+	mk(now.Key+uintptr(len(now.Val)), val, now)
 }

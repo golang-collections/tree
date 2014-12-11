@@ -8,18 +8,17 @@ func TestSeekStart0(t *testing.T) {
 
 }
 
-
-
 func TestAppend0(t *testing.T) {
-/*
-	var h [1][]byte
+	/*
+		var h [1][]byte
 
-	Append(&h, byte(19), byte(5), byte(4), byte(3))
-	if Checksum(h) != 4433864318700699030 {
-		t.Error("Variadic append")
-	}
-*/
+		Append(&h, byte(19), byte(5), byte(4), byte(3))
+		if Checksum(h) != 4433864318700699030 {
+			t.Error("Variadic append")
+		}
+	*/
 }
+
 /*
 func TestAppend1(t *testing.T) {
 

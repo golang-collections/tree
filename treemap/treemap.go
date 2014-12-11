@@ -10,7 +10,7 @@ type Root struct {
 }
 
 func node(key uintptr, p *Node) *Node {
-	return &Node{r: nil, l: nil, p:p, key:key, val:nil}
+	return &Node{r: nil, l: nil, p: p, key: key, val: nil}
 }
 
 // SCAFFOLDING OPERATORS ///////////////////////////////////////////////////////

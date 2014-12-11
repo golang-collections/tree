@@ -20,7 +20,6 @@ func TestMy0(t *testing.T) {
 	vala := []byte("hello")
 	valb := []byte("world")
 
-
 	root := colmgr.At(&cool, colmgr.Root)
 
 	// We put values to a collection
@@ -34,7 +33,6 @@ func TestMy0(t *testing.T) {
 	root.MkNode(384, vala)
 	root.MkNode(640, vala)
 	root.MkNode(896, vala)
-
 
 	// We create iterators at various spots in the collection
 
@@ -131,18 +129,16 @@ func TestTryFreezeNexter0(t *testing.T) {
 	colmgr.Dump(&cool, 0)
 
 	for i := begin.Next(); !i.End(); i.Next() {
-		j := i.At(0)	// freeze nexter on the current slice 0th object
+		j := i.At(0) // freeze nexter on the current slice 0th object
 		_ = j
 
 		window := j.Map()
 		fmt.Printf("%s", window)
 
-
-		ni := j.Next()	// unfreeze a nexter
+		ni := j.Next() // unfreeze a nexter
 
 		foo := fmt.Sprint("%v", i)
 		bar := fmt.Sprint("%v", ni)
-
 
 		if foo != bar {
 			t.Fatal("next is not same:", i, ni)
@@ -172,13 +168,11 @@ func TestTryBadMkNode0(t *testing.T) {
 	root.MkNode(256, valb)
 	root.MkNode(768, valb)
 
-
-
 	leftsubtree := root.At(256)
 	rightsubtree := root.At(768)
 
-//	this is ok
-//	spew.Dump("lstree:", leftsubtree)
+	//	this is ok
+	//	spew.Dump("lstree:", leftsubtree)
 
 	rightsubtree.MkNode(128, vala)
 	rightsubtree.MkNode(384, vala)
@@ -223,17 +217,17 @@ func TestTryBadMkNode1(t *testing.T) {
 
 	nower := root.At(510)
 
-//	print("---------------\n")
+	//	print("---------------\n")
 
-//	colmgr.Dump(&cool, 0)
+	//	colmgr.Dump(&cool, 0)
 
 	nower.MkNode(514, vala)
 
-//	print("---------------\n")
+	//	print("---------------\n")
 
-//	colmgr.Dump(&cool, 0)
+	//	colmgr.Dump(&cool, 0)
 
-//	print("---------------\n")
+	//	print("---------------\n")
 }
 
 func TestTryAppend0(t *testing.T) {
@@ -253,8 +247,8 @@ func TestTryAppend0(t *testing.T) {
 	end := root.At(colmgr.End)
 	_ = end
 
-
-	for i := 0 ; i < 10 ; i++ {
+	// FAST APPEND
+	for i := 0; i < 10; i++ {
 		end.Append(vala)
 		end.Fix()
 	}
@@ -263,7 +257,8 @@ func TestTryAppend0(t *testing.T) {
 
 	colmgr.Dump(&cool, 0)
 
-	for i := 0 ; i < 10 ; i++ {
+	// SLOW APPEND
+	for i := 0; i < 10; i++ {
 		root.Append(vala)
 	}
 

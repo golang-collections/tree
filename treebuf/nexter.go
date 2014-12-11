@@ -3,7 +3,7 @@ package treebuf
 import (
 	"example.com/repo.git/colmgr"
 	"github.com/anlhord/generic"
-//	"fmt"
+	//	"fmt"
 )
 
 // ITERATORS STUFF /////////////////////////////////////////////////////////////
@@ -16,6 +16,7 @@ type NexterAtter struct {
 	Atter
 	direction byte
 }
+
 func (a *NexterAtter) Map() generic.Value {
 	return a.Atter.Map()
 }
@@ -49,6 +50,7 @@ func (a *NexterAtter) Next() colmgr.Nexter { // we are only end, when the tree i
 
 	return n
 }
+
 type Nexter struct {
 	p, q *Node // p is never nil
 }
@@ -66,7 +68,7 @@ func (n *Nexter) At(elem uintptr) colmgr.Atter {
 		dir = 3
 	}
 
-	return &NexterAtter{Atter:Atter{key: n.p.Key + elem, p: n.p}, direction: dir}
+	return &NexterAtter{Atter: Atter{key: n.p.Key + elem, p: n.p}, direction: dir}
 }
 func (n *Nexter) End() bool {
 	return n.q == nil
@@ -183,7 +185,7 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 	}
 	now := at(key, r.trunk.r)
 
-//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
+	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
 }
 func up(now *Node) *Node {
@@ -197,14 +199,14 @@ func at(key uintptr, now *Node) *Node {
 	ok := now
 
 	for now.r != nil && now.Key < key {
-//		fmt.Printf(".. key=%d %p\n", key, now)
+		//		fmt.Printf(".. key=%d %p\n", key, now)
 		ok = now
 		now = now.r
 	}
 
 	// greedy
 	for now != nil {
-//		fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
+		//		fmt.Printf(",, key=%d %p -> %p\n", key, now, now.l)
 		if now.Key > key && now.l != nil {
 			now = now.l
 		} else if now.Key < key && now.r != nil {
@@ -215,7 +217,7 @@ func at(key uintptr, now *Node) *Node {
 	}
 
 	if now.Key > key && ok.Key < now.Key {
-//		fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
+		//		fmt.Printf("! key=%d %p -> %p\n", key, now, ok)
 		now = ok
 
 	}
