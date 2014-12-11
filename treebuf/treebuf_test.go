@@ -262,4 +262,13 @@ func TestTryAppend0(t *testing.T) {
 	print("---------------\n")
 
 	colmgr.Dump(&cool, 0)
+
+	for i := 0 ; i < 10 ; i++ {
+		root.Append(vala)
+	}
+
+	print("---------------\n")
+
+	colmgr.Dump(&cool, 0)
+
 }
