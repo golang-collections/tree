@@ -10,34 +10,26 @@ func node(key uintptr, val generic.Value, p *Node) *Node {
 }
 
 func mk(key uintptr, val generic.Value, now *Node) {
-	next := now
+	next := &now
 
 	for {
 		//		fmt.Printf("key %d nowkey %d\n", key, now.Key)
 
 		if key < now.Key {
-			next = now.l
-			if next == nil {
-				if CmpSwapPtr(&now.l, node(key, val, now)) {
-					return
-				} else {
-					continue
-				}
-			}
+			next = &(now.l)
 		} else if key > now.Key {
-			next = now.r
-			if next == nil {
-				if CmpSwapPtr(&now.r, node(key, val, now)) {
-					return
-				} else {
-					continue
-				}
-			}
+			next = &(now.r)
 		} else {
 			return
 		}
-
-		now = next
+		if *next == nil {
+			if CmpSwapPtr(next, node(key, val, now)) {
+				return
+			} else {
+				continue
+			}
+		}
+		now = *next
 	}
 }
 
