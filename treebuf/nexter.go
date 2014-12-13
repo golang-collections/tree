@@ -17,11 +17,11 @@ type NexterAtter struct {
 	direction byte
 }
 
-func (a *NexterAtter) Map() generic.Value {
+func (a *NexterAtter) Map() *generic.Value {
 	return a.Atter.Map()
 }
 
-func (a *NexterAtter) Upd(b generic.Value) {
+func (a *NexterAtter) Upd(b *generic.Value) {
 	a.Atter.Upd(b)
 }
 func (a *NexterAtter) Fix() {
@@ -73,12 +73,12 @@ func (n *Nexter) At(elem uintptr) colmgr.Atter {
 func (n *Nexter) End() bool {
 	return n.q == nil
 }
-func (a *Atter) Map() generic.Value {
-	return a.p.Val
+func (a *Atter) Map() *generic.Value {
+	return &a.p.Val
 }
 
-func (a *Atter) Upd(b generic.Value) {
-	a.p.Val = b
+func (a *Atter) Upd(b *generic.Value) {
+	a.p.Val = *b
 }
 func (n *Nexter) gap() uintptr {
 	return n.q.Key - n.p.Key
