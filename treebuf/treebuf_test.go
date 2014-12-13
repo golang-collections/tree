@@ -290,7 +290,26 @@ func TestInterfaces0(t *testing.T) {
 
 	root := colmgr.At(&cool, colmgr.Root)
 
-	root.MkNode(512, []byte{})
+	end := root.At(colmgr.End)
+	_ = end
+
+	print("---------------\n")
+
+	colmgr.Append(&vala, end)
+	end.Fix()
+	colmgr.Append(&valb, end)
+	end.Fix()
+	colmgr.Append(&valc, end)
+	end.Fix()
+	colmgr.Append(&vala, end)
+	end.Fix()
+	colmgr.Append(&valb, end)
+	end.Fix()
+	colmgr.Append(&valc, end)
+	end.Fix()
+	print("---------------\n")
+
+	colmgr.Dump(&cool, 0)
 
 /*
 	// We put values to a collection

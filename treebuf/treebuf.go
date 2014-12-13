@@ -4,6 +4,8 @@ import (
 	"example.com/repo.git/colmgr"
 	"fmt"
 	"github.com/anlhord/generic"
+	"github.com/anlhord/generic/kind"
+	"github.com/anlhord/generic/low"
 )
 
 type Root struct {
@@ -33,7 +35,13 @@ func (r *Node) Dump(f byte, d uint) {
 	for i := uint(0); i < d; i++ {
 		fmt.Printf(" ")
 	}
-	fmt.Printf("[%p | %v]\n", r, r)
+	if kind.Kind(r.Val) == 'i' {
+		i := *low.U(&r.Val)
+
+		fmt.Printf("[%p | %v]\n", r, i)
+	} else {
+		fmt.Printf("[%p | %v]\n", r, r)
+	}
 	if r.r != nil {
 		r.r.Dump(f, d+1)
 	}
