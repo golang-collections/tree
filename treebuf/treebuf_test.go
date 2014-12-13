@@ -55,11 +55,13 @@ func TestMy0(t *testing.T) {
 
 		j := i.At(0)
 
-		window := j.Map()
+		colmgr.Get(&cool, j)
 
-		fmt.Printf("%s", window)
+		fmt.Printf("%s", *cool)
 
-		j.Upd(valb)
+		cool = &valb
+
+		colmgr.Put(&cool, j)
 
 		i = j.Next()
 
