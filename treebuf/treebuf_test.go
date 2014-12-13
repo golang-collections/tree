@@ -70,9 +70,9 @@ func TestMy0(t *testing.T) {
 	for i := start.Next(); !i.End(); i.Next() {
 		j := i.At(0)
 
-		window := j.Map()
+		colmgr.Get(&cool, j)
 
-		fmt.Printf("%s", window)
+		fmt.Printf("%s", *cool)
 
 		i = j.Next()
 	}
@@ -134,8 +134,9 @@ func TestTryFreezeNexter0(t *testing.T) {
 		j := i.At(0) // freeze nexter on the current slice 0th object
 		_ = j
 
-		window := j.Map()
-		fmt.Printf("%s", window)
+		colmgr.Get(&cool, j)
+
+		fmt.Printf("%s", *cool)
 
 		ni := j.Next() // unfreeze a nexter
 
