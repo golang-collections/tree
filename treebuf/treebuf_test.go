@@ -1,6 +1,7 @@
 package treebuf
 
 import (
+	"github.com/anlhord/generic"
 	"example.com/repo.git/colmgr"
 	"fmt"
 	"github.com/davecgh/go-spew/spew"
@@ -247,12 +248,14 @@ func TestTryPush0(t *testing.T) {
 	vala := []byte("X")
 	_ = vala
 
+	gv := generic.Value(vala)
+
 	end := root.At(colmgr.End)
 	_ = end
 
 	// FAST Push
 	for i := 0; i < 10; i++ {
-		end.Push(vala)
+		end.Push(&gv)
 		end.Fix()
 	}
 
@@ -262,7 +265,7 @@ func TestTryPush0(t *testing.T) {
 
 	// SLOW Push
 	for i := 0; i < 10; i++ {
-		root.Push(vala)
+		root.Push(&gv)
 	}
 
 	print("---------------\n")
