@@ -1,9 +1,5 @@
 package treebuf
 
-func (r *Root) Split(min, max uintptr) {
-
-}
-
 func parent(min, max uintptr, now *Node) *Node {
 	next := now
 
@@ -24,6 +20,12 @@ func parent(min, max uintptr, now *Node) *Node {
 	}
 }
 
-func (a *Atter) Split(min, max uintptr) {
+func (r *Root) Split(min, max uintptr) {
+	p := parent(min, max, &r.trunk)
+	_ = p
+}
 
+func (a *Atter) Split(min, max uintptr) {
+	p := parent(min, max, a.p)
+	_ = p
 }
