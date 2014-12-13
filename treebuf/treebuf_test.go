@@ -3,7 +3,6 @@ package treebuf
 import (
 	"example.com/repo.git/colmgr"
 	"fmt"
-	"github.com/anlhord/generic"
 	"github.com/davecgh/go-spew/spew"
 	"testing"
 )
@@ -13,7 +12,8 @@ func TestSeekStart0(t *testing.T) {
 }
 
 func TestMy0(t *testing.T) {
-	var cool generic.Collection // this is the collection reference
+	var cool *[]byte // this is the collection reference
+
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
@@ -98,7 +98,7 @@ func TestMy0(t *testing.T) {
 }
 
 func TestTryFreezeNexter0(t *testing.T) {
-	var cool generic.Collection // this is the collection reference
+	var cool *[]byte // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
@@ -150,7 +150,7 @@ func TestTryBadMkNode0(t *testing.T) {
 	// This test demonstrates how a correct tree is produced
 	// by a correct use of Atter.MkNode()
 
-	var cool generic.Collection // this is the collection reference
+	var cool *[]byte // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
@@ -190,7 +190,7 @@ func TestTryBadMkNode1(t *testing.T) {
 	// This test demonstrates how a broken tree is produced
 	// by an incorrect use of Atter.MkNode()
 
-	var cool generic.Collection // this is the collection reference
+	var cool *[]byte // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
@@ -234,7 +234,7 @@ func TestTryAppend0(t *testing.T) {
 	// This test demonstrates how a broken tree is produced
 	// by an incorrect use of Atter.MkNode()
 
-	var cool generic.Collection // this is the collection reference
+	var cool *[]byte // this is the collection reference
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
