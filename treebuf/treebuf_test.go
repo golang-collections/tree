@@ -233,7 +233,7 @@ func TestTryBadMkNode1(t *testing.T) {
 	//	print("---------------\n")
 }
 
-func TestTryAppend0(t *testing.T) {
+func TestTryPush0(t *testing.T) {
 	// This test demonstrates how a broken tree is produced
 	// by an incorrect use of Atter.MkNode()
 
@@ -250,9 +250,9 @@ func TestTryAppend0(t *testing.T) {
 	end := root.At(colmgr.End)
 	_ = end
 
-	// FAST APPEND
+	// FAST Push
 	for i := 0; i < 10; i++ {
-		end.Append(vala)
+		end.Push(vala)
 		end.Fix()
 	}
 
@@ -260,13 +260,63 @@ func TestTryAppend0(t *testing.T) {
 
 	colmgr.Dump(&cool, 0)
 
-	// SLOW APPEND
+	// SLOW Push
 	for i := 0; i < 10; i++ {
-		root.Append(vala)
+		root.Push(vala)
 	}
 
 	print("---------------\n")
 
 	colmgr.Dump(&cool, 0)
 
+}
+
+func TestInterfaces0(t *testing.T) {
+	var cool *interface{} // this is the collection reference
+
+	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
+	defer colmgr.Destroy(&cool) // We destroy the collection
+
+	var vala, valb, valc interface{}
+	vala = 1337
+	valb =13.37
+	valc = "hi"
+	_ = vala
+	_ = valb
+	_ = valc
+
+	root := colmgr.At(&cool, colmgr.Root)
+
+	root.MkNode(512, []byte{})
+
+/*
+	// We put values to a collection
+
+	root.MkNode(512, vala)
+
+	root.MkNode(256, valb)
+	root.MkNode(768, valb)
+
+	root.MkNode(128, valc)
+	root.MkNode(384, valc)
+	root.MkNode(640, valc)
+	root.MkNode(896, valc)
+
+	// We create iterators at various spots in the collection
+
+	_ = root.At(767)
+	at := root.At(768)
+	near := root.At(769)
+	start := root.At(colmgr.Begin)
+	end := root.At(colmgr.End)
+	_ = at
+	_ = near
+	_ = start
+	_ = end
+	_ = root
+
+	//	spew.Dump(root)
+
+	colmgr.Dump(&cool, 0)
+*/
 }
