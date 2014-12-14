@@ -6,42 +6,67 @@ import (
 )
 
 func parent(min, max uintptr, now *Node) *Node {
-	next := now
+	next := &now
 
 	for {
 		if min < now.Key && max < now.Key {
-			next = now.l
+			next = &(now.l)
 		} else if min > now.Key && max > now.Key {
-			next = now.r
+			next = &(now.r)
 		} else {
-		fmt.Printf("nuke %d ~ %d nowkey %d\n", min, max, now.Key)
+			if now.r == nil && now.l == nil {
+print("DEAD\n")
+				*next = nil
+				return nil
+			}
 
 			return now
 		}
-		if next == nil {
+
+		if *next == nil {
 			return nil
 		}
-		now = next
+
+		node := **next
+		node.p = now
+		(*next) = &node
+	 	now = &node
+
+		fmt.Printf("nuke %d ~ %d nowkey %d\n", min, max, now.Key)
 	}
 }
 
-func nuke_serial(min, max uintptr, l, r *Node) {
-	for l.l != nil && r.r != nil {
-		if min < l.Key && l.l != nil {
+func nukel(key uintptr, now *Node) *Node {
+	if now == nil {
+		return nil
+	}
 
-			fmt.Printf("nukel %d nowkey %d\n", min, l.Key)
+	other := &now
+	next := &now
 
-			l = l.l
-
+	for {
+		if key == now.Key {
+			*next = nil
+			return now
+		} else if (key > now.Key) {
+			next = &(now.r)
+			other = &(now.l)
+		} else if (key < now.Key) {
+			next = &(now.l)
+			other = &(now.r)
 		}
 
-		if max > r.Key && r.r != nil {
-
-			fmt.Printf("nuker %d nowkey %d\n", min, r.Key)
-
-			r = r.r
-
+		if *next == nil {
+			return nil
 		}
+
+		(*other) = nil
+		node := **next
+		node.p = now
+		(*next) = &node
+	 	now = &node
+
+		fmt.Printf("nukeLL %d ~ nowkey %d\n", key, now.Key)
 	}
 }
 
@@ -63,10 +88,48 @@ func try_nuke(l **Node, min, max uintptr) bool {
 	n.p = tmp
 
 
+	p := parent(min, max, &n)
+	if p == nil {
+		print("\n\n\nDNO\n\n\n")
+		return true
+	}
+	// p node must be deleted but his children preserved
+	// need merge trees operator
+	// najdem najpravejsie decko a dam ho tu
+	//	*next = nil
 
-	fmt.Printf("tmp %p\n", tmp)
-	fmt.Printf("nuker %v\n", n)
 
+
+
+
+	if p.l != nil {
+	print("\n\n\n ma lave \n\n\n")
+		foo := *(p.l)
+		p.l = &foo
+		nukel(min, &foo)
+	}
+	if p.r != nil {
+	print("\n\n\n ma prave \n\n\n")
+		foo := *(p.r)
+		p.r = &foo
+		nukel(min, &foo)
+	}
+
+
+
+
+
+
+
+/*
+	else {
+
+	}
+*/
+//	fmt.Printf("tmp %p\n", tmp)
+	fmt.Printf("nuked %v\n", p)
+
+	// now we need to 
 
 // store n in trunk.l
 	return CmpPutPtr(l, tmp, &n)

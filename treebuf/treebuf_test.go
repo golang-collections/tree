@@ -50,7 +50,7 @@ func TestMy0(t *testing.T) {
 
 	//	spew.Dump(root)
 
-	colmgr.Dump(&cool, 1)
+//	colmgr.Dump(&cool, 1)
 
 	for i := start.Next(); !i.End(); i.Next() {
 
@@ -130,7 +130,7 @@ func TestTryFreezeNexter0(t *testing.T) {
 
 	begin := root.At(colmgr.Begin)
 
-	colmgr.Dump(&cool, 1)
+//	colmgr.Dump(&cool, 1)
 
 	for i := begin.Next(); !i.End(); i.Next() {
 		j := i.At(0) // freeze nexter on the current slice 0th object
@@ -187,7 +187,7 @@ func TestTryBadMkNode0(t *testing.T) {
 
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 1)
+//	colmgr.Dump(&cool, 1)
 
 	print("---------------\n")
 }
@@ -264,7 +264,7 @@ func TestTryPush0(t *testing.T) {
 
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 1)
+//	colmgr.Dump(&cool, 1)
 
 	// SLOW Push
 	for i := 0; i < 10; i++ {
@@ -273,7 +273,7 @@ func TestTryPush0(t *testing.T) {
 
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 1)
+//	colmgr.Dump(&cool, 1)
 
 }
 
@@ -312,7 +312,7 @@ func TestInterfaces0(t *testing.T) {
 	end.Fix()
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 1)
+//	colmgr.Dump(&cool, 1)
 
 	/*
 		// We put values to a collection
