@@ -188,12 +188,6 @@ func (r *Root) At(key uintptr) colmgr.Atter {
 	//	fmt.Printf("Atol som sa na key=%d %p\n", key, now)
 	return &Atter{key: key, p: now}
 }
-func up(now *Node) *Node {
-	for now.p != nil {
-		now = now.p
-	}
-	return now
-}
 
 func at(key uintptr, now *Node) *Node {
 	ok := now

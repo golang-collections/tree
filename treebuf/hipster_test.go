@@ -177,7 +177,7 @@ func TestHipster0(t *testing.T) {
 	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512+256+128, vala, root)
 
-	//	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 0)
 
 	if checksum(&cool) != 12390328232591426283 {
 		t.Fatal("Tree is different")
@@ -203,6 +203,11 @@ func TestHipster0(t *testing.T) {
 	if testc != tstc {
 		t.Fatal("Slice object 1")
 	}
+
+	// split 1462 4386
+	root.Nuke(1462, 4386)
+
+
 
 	return
 }

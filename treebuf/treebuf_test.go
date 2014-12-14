@@ -238,8 +238,6 @@ func TestTryBadMkNode1(t *testing.T) {
 }
 
 func TestTryPush0(t *testing.T) {
-	// This test demonstrates how a broken tree is produced
-	// by an incorrect use of Atter.MkNode()
 
 	var cool *generic.Value // this is the collection reference
 

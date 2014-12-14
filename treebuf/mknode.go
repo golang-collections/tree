@@ -35,6 +35,13 @@ func mk(key uintptr, val *generic.Value, now *Node) {
 	}
 }
 
+func up(n *Node) *Node {
+	for n.p != nil {
+		n = n.p
+	}
+	return n
+}
+
 func mkup(key uintptr, n *Node) *Node {
 	for n.p != nil && ((n.Key < n.p.Key && key >= n.p.Key) || (n.Key >= n.p.Key && key < n.p.Key)) {
 		if debug_mknode {
