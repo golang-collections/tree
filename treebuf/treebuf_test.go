@@ -13,27 +13,27 @@ func TestSeekStart0(t *testing.T) {
 }
 
 func TestMy0(t *testing.T) {
-	var cool *[]byte // this is the collection reference
+	var cool *generic.Value // this is the collection reference
 
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
-	vala := []byte("hello")
-	valb := []byte("world")
+	vala := generic.Value("hello")
+	valb := generic.Value("world")
 
 	root := colmgr.At(&cool, colmgr.Root)
 
 	// We put values to a collection
 
-	root.MkNode(512, vala)
+	root.MkNode(512, &vala)
 
-	root.MkNode(256, vala)
-	root.MkNode(768, vala)
+	root.MkNode(256, &vala)
+	root.MkNode(768, &vala)
 
-	root.MkNode(128, vala)
-	root.MkNode(384, vala)
-	root.MkNode(640, vala)
-	root.MkNode(896, vala)
+	root.MkNode(128, &vala)
+	root.MkNode(384, &vala)
+	root.MkNode(640, &vala)
+	root.MkNode(896, &vala)
 
 	// We create iterators at various spots in the collection
 
@@ -101,31 +101,32 @@ func TestMy0(t *testing.T) {
 }
 
 func TestTryFreezeNexter0(t *testing.T) {
-	var cool *[]byte // this is the collection reference
+	var cool *generic.Value // this is the collection reference
+
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
 	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
 	_ = root
 
-	vala := []byte("hello")
-	valb := []byte("world")
+	vala := generic.Value("hello")
+	valb := generic.Value("world")
 
 	_ = vala
 	_ = valb
 
-	root.MkNode(512, vala)
+	root.MkNode(512, &vala)
 
-	root.MkNode(256, vala)
-	root.MkNode(768, vala)
+	root.MkNode(256, &vala)
+	root.MkNode(768, &vala)
 
 	leftsubtree := root.At(256)
 	rightsubtree := root.At(768)
 
-	leftsubtree.MkNode(128, vala)
-	leftsubtree.MkNode(384, vala)
-	rightsubtree.MkNode(640, vala)
-	rightsubtree.MkNode(896, vala)
+	leftsubtree.MkNode(128, &vala)
+	leftsubtree.MkNode(384, &vala)
+	rightsubtree.MkNode(640, &vala)
+	rightsubtree.MkNode(896, &vala)
 
 	begin := root.At(colmgr.Begin)
 
@@ -154,23 +155,24 @@ func TestTryBadMkNode0(t *testing.T) {
 	// This test demonstrates how a correct tree is produced
 	// by a correct use of Atter.MkNode()
 
-	var cool *[]byte // this is the collection reference
+	var cool *generic.Value // this is the collection reference
+
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
 	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
 	_ = root
 
-	vala := []byte("bad")
-	valb := []byte("good")
+	vala := generic.Value("bad")
+	valb := generic.Value("good")
 
 	_ = vala
 	_ = valb
 
-	root.MkNode(512, valb)
+	root.MkNode(512, &vala)
 
-	root.MkNode(256, valb)
-	root.MkNode(768, valb)
+	root.MkNode(256, &vala)
+	root.MkNode(768, &vala)
 
 	leftsubtree := root.At(256)
 	rightsubtree := root.At(768)
@@ -178,10 +180,10 @@ func TestTryBadMkNode0(t *testing.T) {
 	//	this is ok
 	//	spew.Dump("lstree:", leftsubtree)
 
-	rightsubtree.MkNode(128, vala)
-	rightsubtree.MkNode(384, vala)
-	leftsubtree.MkNode(640, vala)
-	leftsubtree.MkNode(896, vala)
+	rightsubtree.MkNode(128, &vala)
+	rightsubtree.MkNode(384, &vala)
+	leftsubtree.MkNode(640, &vala)
+	leftsubtree.MkNode(896, &vala)
 
 	print("---------------\n")
 
@@ -194,30 +196,31 @@ func TestTryBadMkNode1(t *testing.T) {
 	// This test demonstrates how a broken tree is produced
 	// by an incorrect use of Atter.MkNode()
 
-	var cool *[]byte // this is the collection reference
+	var cool *generic.Value // this is the collection reference
+
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
 	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
 	_ = root
 
-	vala := []byte("bad")
-	valb := []byte("good")
+	vala := generic.Value("bad")
+	valb := generic.Value("good")
 
 	_ = vala
 	_ = valb
 
-	root.MkNode(512, valb)
-	root.MkNode(599, valb)
-	root.MkNode(513, valb)
-	root.MkNode(598, valb)
+	root.MkNode(512, &valb)
+	root.MkNode(599, &valb)
+	root.MkNode(513, &valb)
+	root.MkNode(598, &valb)
 
 	// todo put 514
 
-	root.MkNode(2, valb)
-	root.MkNode(511, valb)
-	root.MkNode(3, valb)
-	root.MkNode(510, valb)
+	root.MkNode(2, &valb)
+	root.MkNode(511, &valb)
+	root.MkNode(3, &valb)
+	root.MkNode(510, &valb)
 
 	nower := root.At(510)
 
@@ -225,7 +228,7 @@ func TestTryBadMkNode1(t *testing.T) {
 
 	//	colmgr.Dump(&cool, 0)
 
-	nower.MkNode(514, vala)
+	nower.MkNode(514, &vala)
 
 	//	print("---------------\n")
 
@@ -238,14 +241,16 @@ func TestTryPush0(t *testing.T) {
 	// This test demonstrates how a broken tree is produced
 	// by an incorrect use of Atter.MkNode()
 
-	var cool *[]byte // this is the collection reference
+	var cool *generic.Value // this is the collection reference
+
 	colmgr.Init(&cool, Root{})  // We initialize the collection handle with our tree
 	defer colmgr.Destroy(&cool) // We destroy the collection
 
 	root := colmgr.At(&cool, colmgr.Root) // get root node Atter
 	_ = root
 
-	vala := []byte("X")
+	vala := generic.Value("X")
+
 	_ = vala
 
 	gv := generic.Value(vala)

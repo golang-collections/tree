@@ -5,11 +5,11 @@ import (
 	"github.com/anlhord/generic"
 )
 
-func node(key uintptr, val generic.Value, p *Node) *Node {
-	return &Node{r: nil, l: nil, p: p, Key: key, Val: val}
+func node(key uintptr, val *generic.Value, p *Node) *Node {
+	return &Node{r: nil, l: nil, p: p, Key: key, Val: *val}
 }
 
-func mk(key uintptr, val generic.Value, now *Node) {
+func mk(key uintptr, val *generic.Value, now *Node) {
 	next := &now
 
 	for {
@@ -45,7 +45,7 @@ func mkup(key uintptr, n *Node) *Node {
 	return n
 }
 
-func (r *Root) MkNode(key uintptr, val generic.Value) {
+func (r *Root) MkNode(key uintptr, val *generic.Value) {
 	if debug_mknode {
 		fmt.Printf("MkNode to %d.\n", key)
 	}
@@ -54,7 +54,7 @@ func (r *Root) MkNode(key uintptr, val generic.Value) {
 
 // If node truly is in At node's subtree use this
 // This operator is UNSAFE and destroys the tree if the precondition is not met.
-func (a *Atter) MkNode(key uintptr, val generic.Value) {
+func (a *Atter) MkNode(key uintptr, val *generic.Value) {
 	if debug_mknode {
 		fmt.Printf("MkNode to %d from %d.\n", key, a.p.Key)
 	}

@@ -13,7 +13,7 @@ func (a *Atter) Push(val *generic.Value) {
 
 
 
-			a.MkNode(0, *val)
+			a.MkNode(0, val)
 			return
 		}
 		now = now.l
@@ -23,5 +23,5 @@ func (a *Atter) Push(val *generic.Value) {
 	}
 	l := length.Len(now.Val)
 
-	mk(now.Key+uintptr(l), *val, now)
+	mk(now.Key+uintptr(l), val, now)
 }

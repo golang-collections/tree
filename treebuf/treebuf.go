@@ -40,7 +40,7 @@ func (r *Node) Dump(f byte, d uint) {
 
 		fmt.Printf("[%p | %v]\n", r, i)
 	} else {
-		fmt.Printf("[%p | %v]\n", r, r)
+		fmt.Printf("[%p | %p %v %v]\n", r, &(r.Val[0]), len(r.Val), cap(r.Val))
 	}
 	if r.r != nil {
 		r.r.Dump(f, d+1)
