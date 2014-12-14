@@ -3,7 +3,7 @@ package treebuf
 import (
 //	"github.com/anlhord/generic"
 	"example.com/repo.git/colmgr"
-	"fmt"
+//	"fmt"
 //	"github.com/davecgh/go-spew/spew"
 	"testing"
 )
@@ -102,47 +102,113 @@ func TestHipster0(t *testing.T) {
 
 	vala = &vals
 
+//	fmt.Printf("ptr = %p len= %d cap= %d ", &vals[0], len(vals), cap(vals))
+
+
+	vals = objsget(&prng)
 	colmgr.Insert(2048, vala, root)
 
-	fmt.Printf("ptr = %p len= %d cap= %d ", &vals[0], len(vals), cap(vals))
 
-	colmgr.Dump(&cool, 0)
-
-	return
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024, vala, root)
 
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512, vala, root)
 
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512-256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512-256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512-256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512-256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512+256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512+256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512+256, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512+256, vala, root)
 
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512-256-128, vala, root)
+
+	testa := &vals[0]
+	testb := vals[0]
+	testc := vals[1]
+/*
+	fmt.Printf("{{%p}}\n", testa)
+	fmt.Printf("{{%v}}\n", testb)
+	fmt.Printf("{{%v}}\n", testc)
+*/
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512-256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512-256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512-256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512+256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512+256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512+256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512+256-128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512-256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512-256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512-256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512-256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024-512+256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024-512+256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048-1024+512+256+128, vala, root)
+	vals = objsget(&prng)
 	colmgr.Insert(2048+1024+512+256+128, vala, root)
 
 
 	colmgr.Dump(&cool, 0)
+
+	if checksum(&cool) != 12390328232591426283 {
+		t.Fatal("Tree is different")
+	}
+
+	start := root.At(colmgr.Begin)
+	var w *[]hipster
+
+	colmgr.Get(&w, start)
+
+	tsta := &((*w)[0])
+	tstb :=  (*w)[0]
+	tstc :=  (*w)[1]
+
+	if testa != tsta {
+		t.Fatal("Slice pointer")
+	}
+
+	if testb != tstb {
+		t.Fatal("Slice object 0")
+	}
+
+	if testc != tstc {
+		t.Fatal("Slice object 1")
+	}
+
+	return
 }
