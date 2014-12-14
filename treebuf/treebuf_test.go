@@ -1,9 +1,9 @@
 package treebuf
 
 import (
-	"github.com/anlhord/generic"
 	"example.com/repo.git/colmgr"
 	"fmt"
+	"github.com/anlhord/generic"
 	"github.com/davecgh/go-spew/spew"
 	"testing"
 )
@@ -50,7 +50,7 @@ func TestMy0(t *testing.T) {
 
 	//	spew.Dump(root)
 
-	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 1)
 
 	for i := start.Next(); !i.End(); i.Next() {
 
@@ -130,7 +130,7 @@ func TestTryFreezeNexter0(t *testing.T) {
 
 	begin := root.At(colmgr.Begin)
 
-	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 1)
 
 	for i := begin.Next(); !i.End(); i.Next() {
 		j := i.At(0) // freeze nexter on the current slice 0th object
@@ -187,7 +187,7 @@ func TestTryBadMkNode0(t *testing.T) {
 
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 1)
 
 	print("---------------\n")
 }
@@ -266,7 +266,7 @@ func TestTryPush0(t *testing.T) {
 
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 1)
 
 	// SLOW Push
 	for i := 0; i < 10; i++ {
@@ -275,7 +275,7 @@ func TestTryPush0(t *testing.T) {
 
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 1)
 
 }
 
@@ -287,7 +287,7 @@ func TestInterfaces0(t *testing.T) {
 
 	var vala, valb, valc interface{}
 	vala = 1337
-	valb =13.37
+	valb = 13.37
 	valc = "hi"
 	_ = vala
 	_ = valb
@@ -314,36 +314,36 @@ func TestInterfaces0(t *testing.T) {
 	end.Fix()
 	print("---------------\n")
 
-	colmgr.Dump(&cool, 0)
+	colmgr.Dump(&cool, 1)
 
-/*
-	// We put values to a collection
+	/*
+		// We put values to a collection
 
-	root.MkNode(512, vala)
+		root.MkNode(512, vala)
 
-	root.MkNode(256, valb)
-	root.MkNode(768, valb)
+		root.MkNode(256, valb)
+		root.MkNode(768, valb)
 
-	root.MkNode(128, valc)
-	root.MkNode(384, valc)
-	root.MkNode(640, valc)
-	root.MkNode(896, valc)
+		root.MkNode(128, valc)
+		root.MkNode(384, valc)
+		root.MkNode(640, valc)
+		root.MkNode(896, valc)
 
-	// We create iterators at various spots in the collection
+		// We create iterators at various spots in the collection
 
-	_ = root.At(767)
-	at := root.At(768)
-	near := root.At(769)
-	start := root.At(colmgr.Begin)
-	end := root.At(colmgr.End)
-	_ = at
-	_ = near
-	_ = start
-	_ = end
-	_ = root
+		_ = root.At(767)
+		at := root.At(768)
+		near := root.At(769)
+		start := root.At(colmgr.Begin)
+		end := root.At(colmgr.End)
+		_ = at
+		_ = near
+		_ = start
+		_ = end
+		_ = root
 
-	//	spew.Dump(root)
+		//	spew.Dump(root)
 
-	colmgr.Dump(&cool, 0)
-*/
+		colmgr.Dump(&cool, 0)
+	*/
 }

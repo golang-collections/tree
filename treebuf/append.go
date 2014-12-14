@@ -11,8 +11,6 @@ func (a *Atter) Push(val *generic.Value) {
 	if a.p.p == nil {
 		if a.p.l == nil {
 
-
-
 			a.MkNode(0, val)
 			return
 		}
